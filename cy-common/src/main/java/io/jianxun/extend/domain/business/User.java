@@ -1,6 +1,7 @@
 package io.jianxun.extend.domain.business;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -47,6 +48,8 @@ public class User extends AbstractBusinessEntity implements UserDetails {
 	private String password;
 	// 显示名称
 	private String displayName;
+	// 登录令牌
+	private String token;
 
 	// 角色信息
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -57,6 +60,8 @@ public class User extends AbstractBusinessEntity implements UserDetails {
 	// 集合按id排序.
 	@OrderBy("id")
 	private List<Role> roles = Lists.newArrayList();
+
+	private Date lastPasswordResetDate;
 
 	public String getUsername() {
 		return username;
@@ -134,6 +139,27 @@ public class User extends AbstractBusinessEntity implements UserDetails {
 		this.roles = roles;
 	}
 
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public Date getLastPasswordResetDate() {
+		return lastPasswordResetDate;
+	}
+
+	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
+		this.lastPasswordResetDate = lastPasswordResetDate;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -142,11 +168,6 @@ public class User extends AbstractBusinessEntity implements UserDetails {
 	@Override
 	public String toString() {
 		return String.format("[用户id:%d,用户名称%s]", this.getId(), this.getUsername());
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
 	}
 
 }
