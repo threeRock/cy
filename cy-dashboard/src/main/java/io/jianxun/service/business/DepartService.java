@@ -23,7 +23,7 @@ public class DepartService extends AbstractBaseService<Depart> {
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public static final String ROOT_DEPART_NAME = "气体公司";
+	public static final String ROOT_DEPART_NAME = "长药集团";
 
 	/**
 	 * 创建机构根目录
