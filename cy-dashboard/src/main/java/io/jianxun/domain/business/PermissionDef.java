@@ -24,12 +24,12 @@ public enum PermissionDef {
 	DEPART_PAGE("DEPARTLIST", "列表", ModuleDef.ORGANIZATION, DomainDef.ORG_DEPART), DEPART_CREATE("DEPARTCREATE", "新增",
 			ModuleDef.ORGANIZATION, DomainDef.ORG_DEPART), DEPART_MODIFY("DEPARTMODIFY", "修改", ModuleDef.ORGANIZATION,
 					DomainDef.ORG_DEPART), DEPART_REMOVE("DEPARTREMOVE", "删除", ModuleDef.ORGANIZATION,
-							DomainDef.ORG_DEPART);
-//	// 设备类别
-//	MAINTYPE_PAGE("MAINTYPELIST", "列表", ModuleDef.DEVICE, DomainDef.DEVICE_MAINTYPE), MAINTYPE_CREATE("MAINTYPECREATE",
-//			"新增", ModuleDef.DEVICE, DomainDef.DEVICE_MAINTYPE), MAINTYPE_MODIFY("MAINTYPEMODIFY", "修改",
-//					ModuleDef.DEVICE, DomainDef.DEVICE_MAINTYPE), MAINTYPE_REMOVE("MAINTYPEREMOVE", "删除",
-//							ModuleDef.DEVICE, DomainDef.DEVICE_MAINTYPE),
+							DomainDef.ORG_DEPART),
+	// 设备类别
+	MAINTYPE_PAGE("MAINTYPELIST", "列表", ModuleDef.MED, DomainDef.MED_MAINTYPE), MAINTYPE_CREATE("MAINTYPECREATE",
+			"新增", ModuleDef.MED, DomainDef.MED_MAINTYPE), MAINTYPE_MODIFY("MAINTYPEMODIFY", "修改",
+					ModuleDef.MED, DomainDef.MED_MAINTYPE), MAINTYPE_REMOVE("MAINTYPEREMOVE", "删除",
+							ModuleDef.MED, DomainDef.MED_MAINTYPE);
 //	// 备件类别
 //	SUBTYPE_PAGE("SUBTYPELIST", "列表", ModuleDef.DEVICE, DomainDef.DEVICE_SUBTYPE), SUBTYPE_CREATE("SUBTYPECREATE", "新增",
 //			ModuleDef.DEVICE, DomainDef.DEVICE_SUBTYPE), SUBTYPE_MODIFY("SUBTYPEMODIFY", "修改", ModuleDef.DEVICE,
@@ -164,7 +164,7 @@ public enum PermissionDef {
 
 	// 模块定义
 	public enum ModuleDef {
-		SYS("sys", "系统设置", 99), ORGANIZATION("org", "机构管理", 7), DEVICE("device", "设备管理", 5);
+		SYS("sys", "系统设置", 99), ORGANIZATION("org", "机构管理", 7), MED("med", "药品管理", 5);
 		private String code;
 		private String name;
 		private Integer sortNum = 99;
@@ -218,11 +218,7 @@ public enum PermissionDef {
 		// 系统配置
 		SYS_USER("sys_user", "用户管理", 0), SYS_ROLE("sys_role", "角色管理", 10), ORG_DEPART("org_depart", "机构管理",
 				20), 
-//		DEVICE_MAINTYPE("device_maintype", "备件大类", 30), DEVICE_SUBTYPE("device_subtype", "备件子类",
-//						40), DEVICE_STOREHOUSE("device_storehouse", "仓库管理", 50), DEVICE_PRODUCTIONLINE(
-//								"device_productionline", "生产线管理", 60), DEVICE_DEVICE("device_device", "设备管理",
-//										70), DEVICE_SPAREPART("device_sparepart", "备件管理", 70)
-		;
+		MED_MAINTYPE("med_maintype", "药品类别", 30);
 
 		private String code;
 		private String name;

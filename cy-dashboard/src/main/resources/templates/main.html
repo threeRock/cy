@@ -349,6 +349,15 @@
 									<li><a href="#" th:href="@{/depart/tree/}"
 										data-options="{id:'depart-page', faicon:'caret-right'}">机构管理</a></li>
 								</ul>
+								
+								<ul
+									sec:authorize="hasAnyAuthority('DEVICELIST','DEVICECREATE','DEVICEMODIFY','DEVICEREMOVE','SPAREPARTLIST','SPAREPARTCREATE','SPAREPARTMODIFY','SPAREPARTREMOVE','MAINTYPELIST','MAINTYPECREATE','MAINTYPEMODIFY','MAINTYPEREMOVE','SUBTYPELIST','SUBTYPECREATE','SUBTYPEMODIFY','SUBTYPEREMOVE')"
+									class="menu-items" data-tit="基础信息管理" data-faicon="cog">
+									<li
+										sec:authorize="hasAnyAuthority('MAINTYPELIST','MAINTYPECREATE','MAINTYPEMODIFY','MAINTYPEREMOVE')"><a
+										href="#" th:href="@{/device/maintype/page/}"
+										data-options="{id:'maintype-page', faicon:'devicet-right'}">药品类别</a></li>								
+								</ul>
 <!-- 
 								<ul
 									sec:authorize="hasAnyAuthority('STOREHOUSELIST','STOREHOUSECREATE','STOREHOUSEMODIFY','STOREHOUSEREMOVE')"
