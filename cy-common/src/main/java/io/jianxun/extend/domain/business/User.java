@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -50,6 +51,9 @@ public class User extends AbstractBusinessEntity implements UserDetails {
 	private String displayName;
 	// 登录令牌
 	private String token;
+	@ManyToOne
+	@JoinColumn(name = "depart_id")
+	private Depart depart;
 
 	// 角色信息
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -158,6 +162,14 @@ public class User extends AbstractBusinessEntity implements UserDetails {
 
 	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
 		this.lastPasswordResetDate = lastPasswordResetDate;
+	}
+
+	public Depart getDepart() {
+		return depart;
+	}
+
+	public void setDepart(Depart depart) {
+		this.depart = depart;
 	}
 
 	/*

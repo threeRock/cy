@@ -260,6 +260,7 @@
 
 			zTree.expandNode(treeNode, !treeNode.open, false, true, true)
 			return
+
 		}
 		/*<![CDATA[*/
 		if (treeNode.target && treeNode.target == 'dialog')
@@ -328,7 +329,7 @@
 
 						<li class="active"><a href="javascript:;"
 							data-toggle="slidebar"><i class="fa fa-check-square-o"></i>
-								设备信息管理</a>
+								药品信息管理</a>
 							<div class="items hide" data-noinit="true">
 								<ul
 									sec:authorize="hasAnyAuthority('USERLIST','USERCREATE','USERMODIFY','USERREMOVE','USERRESETPASSWROD','ROLELIST','ROLECREATE','ROLEMODIFY','ROLEREMOVE')"
@@ -349,58 +350,16 @@
 									<li><a href="#" th:href="@{/depart/tree/}"
 										data-options="{id:'depart-page', faicon:'caret-right'}">机构管理</a></li>
 								</ul>
-								
+
 								<ul
 									sec:authorize="hasAnyAuthority('DEVICELIST','DEVICECREATE','DEVICEMODIFY','DEVICEREMOVE','SPAREPARTLIST','SPAREPARTCREATE','SPAREPARTMODIFY','SPAREPARTREMOVE','MAINTYPELIST','MAINTYPECREATE','MAINTYPEMODIFY','MAINTYPEREMOVE','SUBTYPELIST','SUBTYPECREATE','SUBTYPEMODIFY','SUBTYPEREMOVE')"
 									class="menu-items" data-tit="基础信息管理" data-faicon="cog">
 									<li
 										sec:authorize="hasAnyAuthority('MAINTYPELIST','MAINTYPECREATE','MAINTYPEMODIFY','MAINTYPEREMOVE')"><a
-										href="#" th:href="@{/device/maintype/page/}"
-										data-options="{id:'maintype-page', faicon:'devicet-right'}">药品类别</a></li>								
+										href="#" th:href="@{/medicament/category/page/}"
+										data-options="{id:'maintype-page', faicon:'devicet-right'}">药品类别</a></li>
 								</ul>
-<!-- 
-								<ul
-									sec:authorize="hasAnyAuthority('STOREHOUSELIST','STOREHOUSECREATE','STOREHOUSEMODIFY','STOREHOUSEREMOVE')"
-									class="menu-items" data-tit="仓库设置" data-faicon="cog">
-									<li><a href="#" th:href="@{/device/storehouse/tree/}"
-										data-options="{id:'storehouse-page', faicon:'caret-right'}">仓库管理</a></li>
-								</ul>
-								<ul
-									sec:authorize="hasAnyAuthority('PRODUCTIONLINELIST','PRODUCTIONLINECREATE','PRODUCTIONLINEMODIFY','PRODUCTIONLINEREMOVE')"
-									class="menu-items" data-tit="生产线设置" data-faicon="cog">
-									<li><a href="#" th:href="@{/device/productionline/tree/}"
-										data-options="{id:'productionline-page', faicon:'caret-right'}">生产线管理</a></li>
-								</ul>
-
-								<ul
-									sec:authorize="hasAnyAuthority('DEVICELIST','DEVICECREATE','DEVICEMODIFY','DEVICEREMOVE','SPAREPARTLIST','SPAREPARTCREATE','SPAREPARTMODIFY','SPAREPARTREMOVE','MAINTYPELIST','MAINTYPECREATE','MAINTYPEMODIFY','MAINTYPEREMOVE','SUBTYPELIST','SUBTYPECREATE','SUBTYPEMODIFY','SUBTYPEREMOVE')"
-									class="menu-items" data-tit="设备设置" data-faicon="cog">
-									<li
-										sec:authorize="hasAnyAuthority('DEVICELIST','DEVICECREATE','DEVICEMODIFY','DEVICEREMOVE')"><a
-										href="#" th:href="@{/device/tree/}"
-										data-options="{id:'device-page', faicon:'devicet-right'}">设备管理</a></li>
-									<li
-										sec:authorize="hasAnyAuthority('SPAREPARTLIST','SPAREPARTCREATE','SPAREPARTMODIFY','SPAREPARTREMOVE')"><a
-										href="#" th:href="@{/device/sparepart/tree/}"
-										data-options="{id:'sparepart-page', faicon:'devicet-right'}">备件管理</a></li>
-									<li
-										sec:authorize="hasAnyAuthority('MAINTYPELIST','MAINTYPECREATE','MAINTYPEMODIFY','MAINTYPEREMOVE')"><a
-										href="#" th:href="@{/device/maintype/page/}"
-										data-options="{id:'maintype-page', faicon:'devicet-right'}">设备类别</a></li>
-									<li
-										sec:authorize="hasAnyAuthority('SUBTYPELIST','SUBTYPECREATE','SUBTYPEMODIFY','SUBTYPEREMOVE')"><a
-										href="#" th:href="@{/device/subtype/page/}"
-										data-options="{id:'subtype-page', faicon:'devicet-right'}">配件类别</a></li>
-								</ul>
-								
-								<ul
-									sec:authorize="hasAnyAuthority('DEPARTLIST','DEPARTCREATE','DEPARTMODIFY','DEPARTREMOVE')"
-									class="menu-items" data-tit="测试机构设置" data-faicon="cog">
-									<li><a href="#" th:href="@{/depttest/tree/}"
-										data-options="{id:'depttest-page', faicon:'caret-right'}">测试机构管理</a></li>
-									<li><a href="#" th:href="@{/usertest/tree/}"
-										data-options="{id:'usertest-page', faicon:'caret-right'}">测试用户管理</a></li>
-								</ul>
+								<!-- 
 -->
 
 							</div></li>

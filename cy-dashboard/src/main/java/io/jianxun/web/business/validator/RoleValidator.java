@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import io.jianxun.domain.business.Role;
-import io.jianxun.service.LocaleMessageSourceService;
-import io.jianxun.service.business.RoleService;
+import io.jianxun.extend.domain.business.Role;
+import io.jianxun.extend.service.LocaleMessageSourceService;
+import io.jianxun.extend.service.business.RoleService;
 
 @Component
 public class RoleValidator implements Validator {

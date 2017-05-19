@@ -18,9 +18,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass=true)
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactorySecondary", transactionManagerRef = "transactionManagerSecondary", basePackages = {
-		"io.jianxun.source.repository.business" }) // 设置Repository所在位置
+		"io.jianxun.source.repository" }) // 设置Repository所在位置
 public class SecondaryConfig {
 	@Autowired
 	@Qualifier("secondaryDataSource")
@@ -34,7 +34,7 @@ public class SecondaryConfig {
 	@Bean(name = "entityManagerFactorySecondary")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactorySecondary(EntityManagerFactoryBuilder builder) {
 		return builder.dataSource(secondaryDataSource).properties(getVendorProperties(secondaryDataSource))
-				.packages("io.jianxun.source.domain.business") // 设置实体类所在位置
+				.packages("io.jianxun.source.domain") // 设置实体类所在位置
 				.persistenceUnit("secondaryPersistenceUnit").build();
 	}
 

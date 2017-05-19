@@ -27,16 +27,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
 
-import io.jianxun.domain.business.Depart;
-import io.jianxun.domain.business.User;
-import io.jianxun.service.BusinessException;
-import io.jianxun.service.LocaleMessageSourceService;
-import io.jianxun.service.business.DepartService;
-import io.jianxun.service.business.RoleService;
-import io.jianxun.service.business.UserPredicates;
-import io.jianxun.service.business.UserService;
+import io.jianxun.extend.domain.business.Depart;
+import io.jianxun.extend.domain.business.User;
+import io.jianxun.extend.dto.ChangePasswordDto;
+import io.jianxun.extend.service.BusinessException;
+import io.jianxun.extend.service.LocaleMessageSourceService;
+import io.jianxun.extend.service.business.DepartService;
+import io.jianxun.extend.service.business.RoleService;
+import io.jianxun.extend.service.business.UserPredicates;
+import io.jianxun.extend.service.business.UserService;
 import io.jianxun.web.business.validator.UserValidator;
-import io.jianxun.web.dto.ChangePasswordDto;
+import io.jianxun.web.dto.DepartTree;
 import io.jianxun.web.dto.ResetPasswordDto;
 import io.jianxun.web.dto.ReturnDto;
 import io.jianxun.web.utils.CurrentLoginInfo;
@@ -59,7 +60,7 @@ public class UserController {
 	@GetMapping(value = "tree")
 	public String tree(Model model, @RequestParam MultiValueMap<String, String> parameters) {
 		try {
-			model.addAttribute("tree", mapper.writeValueAsString(departService.getUserDepartTree()));
+			model.addAttribute("tree", mapper.writeValueAsString(DepartTree.getDepartTree(this.departService.getSubDeparts(currentLoginInfo.currentLoginUser().getDepart()))));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			throw new BusinessException(localeMessageSourceService.getMessage("depart.tree.error"));
@@ -141,21 +142,6 @@ public class UserController {
 		return templatePrefix() + "resetpassword";
 	}
 
-	/**
-	 * 重置登录密码保存
-	 * 
-	 * @param password
-	 * @param parameters
-	 * @return
-	 */
-	@PostMapping("resetpassword/current")
-	@PreAuthorize("hasAuthority('USERRESETPASSWROD')")
-	@ResponseBody
-	ReturnDto resetPasswordSave(@Valid ResetPasswordDto password,
-			@RequestParam MultiValueMap<String, String> parameters) {
-		userService.resetPassword(password);
-		return ReturnDto.ok(localeMessageSourceService.getMessage("user.resetpassword.successed"));
-	}
 
 	@GetMapping("changepassword/{id}")
 	@PreAuthorize("hasAuthority('USERCHANGEPASSWROD')")

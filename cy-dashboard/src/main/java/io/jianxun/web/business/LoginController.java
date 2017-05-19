@@ -10,20 +10,17 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import io.jianxun.service.business.DepartService;
-import io.jianxun.service.business.UserService;
+import io.jianxun.source.repository.ERPMedicamentRepository;
 
 @Controller
 public class LoginController {
 
 	@Autowired
-	private UserService userService;
-	@Autowired
-	private DepartService departService;
+	private ERPMedicamentRepository erpMedicamentRepository;
 
 	@GetMapping(value = "login")
 	public String loginForm() {
-		userService.createAdminIfInit(departService.initRoot());
+		System.out.println("__________________"+erpMedicamentRepository.count());
 		return "login";
 	}
 

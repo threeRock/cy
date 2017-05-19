@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.querydsl.core.types.Predicate;
 
-import io.jianxun.domain.business.PermissionDef;
-import io.jianxun.domain.business.Role;
-import io.jianxun.service.LocaleMessageSourceService;
-import io.jianxun.service.business.RoleService;
+import io.jianxun.extend.domain.business.PermissionDef;
+import io.jianxun.extend.domain.business.Role;
+import io.jianxun.extend.service.LocaleMessageSourceService;
+import io.jianxun.extend.service.business.RoleService;
 import io.jianxun.web.business.validator.RoleValidator;
 import io.jianxun.web.dto.ReturnDto;
 import io.jianxun.web.utils.Utils;

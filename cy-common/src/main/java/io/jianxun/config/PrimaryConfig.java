@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import io.jianxun.extend.repository.BusinessBaseRepositoryImpl;
 
 @Configuration
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass=true)
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactoryPrimary", transactionManagerRef = "transactionManagerPrimary", basePackages = {
 		"io.jianxun.extend.repository" }, repositoryBaseClass = BusinessBaseRepositoryImpl.class)
 public class PrimaryConfig {

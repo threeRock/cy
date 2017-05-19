@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import io.jianxun.domain.business.Depart;
-import io.jianxun.service.LocaleMessageSourceService;
-import io.jianxun.service.business.DepartService;
+import io.jianxun.extend.domain.business.Depart;
+import io.jianxun.extend.service.LocaleMessageSourceService;
+import io.jianxun.extend.service.business.DepartService;
 
 @Component
 public class DepartValidator implements Validator {

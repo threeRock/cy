@@ -28,12 +28,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
 
-import io.jianxun.domain.business.Depart;
-import io.jianxun.service.BusinessException;
-import io.jianxun.service.LocaleMessageSourceService;
-import io.jianxun.service.business.DepartPredicates;
-import io.jianxun.service.business.DepartService;
+import io.jianxun.extend.domain.business.Depart;
+import io.jianxun.extend.service.BusinessException;
+import io.jianxun.extend.service.LocaleMessageSourceService;
+import io.jianxun.extend.service.business.DepartPredicates;
+import io.jianxun.extend.service.business.DepartService;
 import io.jianxun.web.business.validator.DepartValidator;
+import io.jianxun.web.dto.DepartTree;
 import io.jianxun.web.dto.ReturnDto;
 import io.jianxun.web.utils.CurrentLoginInfo;
 import io.jianxun.web.utils.Utils;
@@ -52,7 +53,7 @@ public class DepartController {
 	@PreAuthorize("hasAuthority('DEPARTLIST')")
 	public String tree(Model model, @RequestParam MultiValueMap<String, String> parameters) {
 		try {
-			model.addAttribute("tree", mapper.writeValueAsString(departService.getDepartTree()));
+			model.addAttribute("tree", mapper.writeValueAsString(DepartTree.getDepartTree(this.departService.getSubDeparts(currentLoginInfo.currentLoginUser().getDepart()))));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			throw new BusinessException(localeMessageSourceService.getMessage("depart.tree.error"));

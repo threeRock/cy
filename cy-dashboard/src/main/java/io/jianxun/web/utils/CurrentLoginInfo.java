@@ -5,8 +5,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import io.jianxun.domain.business.Depart;
-import io.jianxun.domain.business.User;
+import io.jianxun.extend.domain.business.Depart;
+import io.jianxun.extend.domain.business.User;
 
 @Component
 public class CurrentLoginInfo {

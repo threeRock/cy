@@ -39,6 +39,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final BooleanPath credentialsNonExpired = createBoolean("credentialsNonExpired");
 
+    public final QDepart depart;
+
     public final StringPath displayName = createString("displayName");
 
     public final BooleanPath enabled = createBoolean("enabled");
@@ -87,6 +89,7 @@ public class QUser extends EntityPathBase<User> {
         this.active = _super.active;
         this.createdBy = _super.createdBy;
         this.createdDate = _super.createdDate;
+        this.depart = inits.isInitialized("depart") ? new QDepart(forProperty("depart"), inits.get("depart")) : null;
         this.id = _super.id;
         this.lastModifieBy = _super.lastModifieBy;
         this.lastModifiedDate = _super.lastModifiedDate;

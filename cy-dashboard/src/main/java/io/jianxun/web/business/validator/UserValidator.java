@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import io.jianxun.domain.business.Depart;
-import io.jianxun.domain.business.User;
-import io.jianxun.service.LocaleMessageSourceService;
-import io.jianxun.service.business.DepartService;
-import io.jianxun.service.business.UserService;
+import io.jianxun.extend.domain.business.Depart;
+import io.jianxun.extend.domain.business.User;
+import io.jianxun.extend.service.LocaleMessageSourceService;
+import io.jianxun.extend.service.business.DepartService;
+import io.jianxun.extend.service.business.UserService;
 
 @Component
 public class UserValidator implements Validator {
