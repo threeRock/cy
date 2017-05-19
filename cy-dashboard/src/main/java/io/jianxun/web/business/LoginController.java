@@ -10,6 +10,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import io.jianxun.extend.service.business.UserService;
 import io.jianxun.source.repository.ERPMedicamentRepository;
 
 @Controller
@@ -32,5 +33,8 @@ public class LoginController {
 		}
 		return "redirect:/login?logout";
 	}
+	
+	@Autowired
+	private UserService userService;
 
 }

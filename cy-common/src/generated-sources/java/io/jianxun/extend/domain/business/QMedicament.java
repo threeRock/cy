@@ -46,6 +46,8 @@ public class QMedicament extends EntityPathBase<Medicament> {
 
     public final StringPath mainPic = createString("mainPic");
 
+    public final QMedicamentCatetory medcategory;
+
     public final ListPath<String, StringPath> pics = this.<String, StringPath>createList("pics", String.class, StringPath.class, PathInits.DIRECT2);
 
     //inherited
@@ -78,6 +80,7 @@ public class QMedicament extends EntityPathBase<Medicament> {
         this.id = _super.id;
         this.lastModifieBy = _super.lastModifieBy;
         this.lastModifiedDate = _super.lastModifiedDate;
+        this.medcategory = inits.isInitialized("medcategory") ? new QMedicamentCatetory(forProperty("medcategory"), inits.get("medcategory")) : null;
         this.version = _super.version;
     }
 

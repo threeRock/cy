@@ -7,6 +7,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,6 +26,10 @@ public class Medicament extends AbstractBusinessEntity {
 	// 商品内码
 	@Transient
 	private ERPMedicament erpInfo;
+	
+	//药品类别
+	@ManyToOne
+	private MedicamentCatetory medcategory;
 	//erp系统中药品管理id用于获取erpInfo
 	private String erpSpid;
 	// 首显示图片
@@ -75,6 +80,14 @@ public class Medicament extends AbstractBusinessEntity {
 
 	public void setErpSpid(String erpSpid) {
 		this.erpSpid = erpSpid;
+	}
+
+	public MedicamentCatetory getMedcategory() {
+		return medcategory;
+	}
+
+	public void setMedcategory(MedicamentCatetory medcategory) {
+		this.medcategory = medcategory;
 	}
 	
 	
