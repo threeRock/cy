@@ -1,22 +1,22 @@
 package io.jianxun.source.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "sphwph")
 public class ERPMedicamentBatch {
 
-//	@EmbeddedId
+	@EmbeddedId
 	private ERPMedicamentBatchKey batchKey;
-	private BigDecimal gebjj; //成本单价
-	private String pihao; //批号内码隐
-	private String pihao2; //批号
-	private String jwh; //架位号
-	private BigDecimal shl; //数量
-	private String sxrq; //有效期
+	private BigDecimal gebjj; // 成本单价
+	private String pihao2; // 批号
+	private String jwh; // 架位号
+	private BigDecimal shl; // 数量
+	private String sxrq; // 有效期
 
 	public ERPMedicamentBatchKey getBatchKey() {
 		return batchKey;
@@ -32,14 +32,6 @@ public class ERPMedicamentBatch {
 
 	public void setGebjj(BigDecimal gebjj) {
 		this.gebjj = gebjj;
-	}
-
-	public String getPihao() {
-		return pihao;
-	}
-
-	public void setPihao(String pihao) {
-		this.pihao = pihao;
 	}
 
 	public String getPihao2() {

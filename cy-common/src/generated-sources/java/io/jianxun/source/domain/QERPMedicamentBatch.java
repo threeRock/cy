@@ -28,8 +28,6 @@ public class QERPMedicamentBatch extends EntityPathBase<ERPMedicamentBatch> {
 
     public final StringPath jwh = createString("jwh");
 
-    public final StringPath pihao = createString("pihao");
-
     public final StringPath pihao2 = createString("pihao2");
 
     public final NumberPath<java.math.BigDecimal> shl = createNumber("shl", java.math.BigDecimal.class);
