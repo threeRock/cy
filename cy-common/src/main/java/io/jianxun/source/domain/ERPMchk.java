@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Table(name = "mchk")
 public class ERPMchk {
 	private String dwmch;//单位名,
+	@Id
 	private String dwbh;// 单位编号,
 	private String ywy;//业务员,
 	private String jingyfw;//经营范围,

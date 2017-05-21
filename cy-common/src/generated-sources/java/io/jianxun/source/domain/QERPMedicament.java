@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,11 +18,15 @@ public class QERPMedicament extends EntityPathBase<ERPMedicament> {
 
     private static final long serialVersionUID = 1597191092L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QERPMedicament eRPMedicament = new QERPMedicament("eRPMedicament");
 
     public final StringPath beactive = createString("beactive");
 
     public final StringPath dw = createString("dw");
+
+    public final QERPMedicamentKey id;
 
     public final StringPath is_jkyp = createString("is_jkyp");
 
@@ -43,8 +48,6 @@ public class QERPMedicament extends EntityPathBase<ERPMedicament> {
 
     public final StringPath shpgg = createString("shpgg");
 
-    public final StringPath spid = createString("spid");
-
     public final StringPath spmch = createString("spmch");
 
     public final StringPath yongyfl = createString("yongyfl");
@@ -56,15 +59,24 @@ public class QERPMedicament extends EntityPathBase<ERPMedicament> {
     public final StringPath zhuzlx = createString("zhuzlx");
 
     public QERPMedicament(String variable) {
-        super(ERPMedicament.class, forVariable(variable));
+        this(ERPMedicament.class, forVariable(variable), INITS);
     }
 
     public QERPMedicament(Path<? extends ERPMedicament> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QERPMedicament(PathMetadata metadata) {
-        super(ERPMedicament.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QERPMedicament(PathMetadata metadata, PathInits inits) {
+        this(ERPMedicament.class, metadata, inits);
+    }
+
+    public QERPMedicament(Class<? extends ERPMedicament> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.id = inits.isInitialized("id") ? new QERPMedicamentKey(forProperty("id")) : null;
     }
 
 }

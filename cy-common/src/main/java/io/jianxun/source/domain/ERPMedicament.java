@@ -2,8 +2,8 @@ package io.jianxun.source.domain;
 
 import java.math.BigDecimal;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -17,8 +17,8 @@ import javax.persistence.Table;
 public class ERPMedicament {
 
 	// 商品id
-	@Id
-	private String spid;
+	@EmbeddedId
+	private ERPMedicamentKey id;
 	// 商品资料
 	private String spmch;
 	// 商品条码
@@ -68,18 +68,18 @@ public class ERPMedicament {
 	private BigDecimal pfpj;
 
 	/**
-	 * @return the spid
+	 * @return the id
 	 */
-	public String getSpid() {
-		return spid;
+	public ERPMedicamentKey getId() {
+		return id;
 	}
 
 	/**
-	 * @param spid
-	 *            the spid to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setSpid(String spid) {
-		this.spid = spid;
+	public void setId(ERPMedicamentKey id) {
+		this.id = id;
 	}
 
 	/**

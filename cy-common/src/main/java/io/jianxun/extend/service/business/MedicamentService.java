@@ -30,8 +30,8 @@ public class MedicamentService extends AbstractBaseService<Medicament> {
 		for (ERPMedicament m : p.getContent()) {
 			Medicament temp = new Medicament();
 			temp.setErpInfo(m);
-			temp.setErpSpid(m.getSpid());
-			Medicament x = medrepo.findActiveOne(MedicamentPredicates.erpSpidPredicate(m.getSpid()));
+			temp.setErpSpid(m.getId().getSpid());
+			Medicament x = medrepo.findActiveOne(MedicamentPredicates.erpSpidPredicate(m.getId().getSpid()));
 			if (x != null) {
 				temp.setMedcategory(x.getMedcategory());
 				temp.setMainPic(x.getMainPic());

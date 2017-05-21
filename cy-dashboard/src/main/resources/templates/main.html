@@ -338,14 +338,11 @@
 								长江药业信息管理</a>
 							<div class="items hide" data-noinit="true">
 								<ul
-									sec:authorize="hasAnyAuthority('DEVICELIST','DEVICECREATE','DEVICEMODIFY','DEVICEREMOVE','SPAREPARTLIST','SPAREPARTCREATE','SPAREPARTMODIFY','SPAREPARTREMOVE','MAINTYPELIST','MAINTYPECREATE','MAINTYPEMODIFY','MAINTYPEREMOVE','SUBTYPELIST','SUBTYPECREATE','SUBTYPEMODIFY','SUBTYPEREMOVE')"
 									class="menu-items" data-tit="药品信息管理" data-faicon="cog">
-									<li
-										sec:authorize="hasAnyAuthority('MAINTYPELIST','MAINTYPECREATE','MAINTYPEMODIFY','MAINTYPEREMOVE')"><a
+									<li><a
 										href="#" th:href="@{/medicament/page/}"
 										data-options="{id:'maintype-page', faicon:'devicet-right'}">药品基本信息</a></li>
-									<li
-										sec:authorize="hasAnyAuthority('MAINTYPELIST','MAINTYPECREATE','MAINTYPEMODIFY','MAINTYPEREMOVE')"><a
+									<li><a
 										href="#" th:href="@{/medicament/category/page/}"
 										data-options="{id:'maintype-page', faicon:'devicet-right'}">药品类别</a></li>
 								</ul>

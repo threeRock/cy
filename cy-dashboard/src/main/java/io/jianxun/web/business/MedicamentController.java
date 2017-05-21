@@ -27,7 +27,7 @@ public class MedicamentController {
 	 * 分页列表 支持 查询 分页 及 排序
 	 */
 	@RequestMapping(value = { "/page/" })
-	@PreAuthorize("hasAuthority('medicamentLIST')")
+	@PreAuthorize("hasAuthority('MEDICAMENTLIST')")
 	String page(Model model,
 			@QuerydslPredicate(root = Medicament.class) Predicate predicate,
 			@PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
@@ -46,7 +46,7 @@ public class MedicamentController {
 
 	@Autowired
 	private MedicamentService medicamentService;
-
+	
 	@Autowired
 	private Utils util;
 
