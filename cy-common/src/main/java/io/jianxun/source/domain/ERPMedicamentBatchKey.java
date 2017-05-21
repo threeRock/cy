@@ -20,7 +20,6 @@ public class ERPMedicamentBatchKey implements Serializable {
 	private String spid;
 	// 批号
 	private String pihao;
-
 	// 货位
 	private String hw;
 

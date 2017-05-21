@@ -1,18 +1,22 @@
 package io.jianxun.source.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.math.BigDecimal;
+
+
+@Entity
+@Table(name = "sphwph")
 public class ERPMedicamentBatch {
 
 //	@EmbeddedId
 	private ERPMedicamentBatchKey batchKey;
-	private String hw;
-	private String baozhiqi;
-	private String dangq;
-	
-	
-	
-	
-
-	
+	private BigDecimal gebjj; //成本单价
+	private String pihao; //批号内码隐
+	private String pihao2; //批号
+	private String jwh; //架位号
+	private BigDecimal shl; //数量
+	private String sxrq; //有效期
 
 	public ERPMedicamentBatchKey getBatchKey() {
 		return batchKey;
@@ -22,28 +26,51 @@ public class ERPMedicamentBatch {
 		this.batchKey = batchKey;
 	}
 
-	public String getHw() {
-		return hw;
+	public BigDecimal getGebjj() {
+		return gebjj;
 	}
 
-	public void setHw(String hw) {
-		this.hw = hw;
+	public void setGebjj(BigDecimal gebjj) {
+		this.gebjj = gebjj;
 	}
 
-	public String getBaozhiqi() {
-		return baozhiqi;
+	public String getPihao() {
+		return pihao;
 	}
 
-	public void setBaozhiqi(String baozhiqi) {
-		this.baozhiqi = baozhiqi;
+	public void setPihao(String pihao) {
+		this.pihao = pihao;
 	}
 
-	public String getDangq() {
-		return dangq;
+	public String getPihao2() {
+		return pihao2;
 	}
 
-	public void setDangq(String dangq) {
-		this.dangq = dangq;
+	public void setPihao2(String pihao2) {
+		this.pihao2 = pihao2;
 	}
 
+	public String getJwh() {
+		return jwh;
+	}
+
+	public void setJwh(String jwh) {
+		this.jwh = jwh;
+	}
+
+	public BigDecimal getShl() {
+		return shl;
+	}
+
+	public void setShl(BigDecimal shl) {
+		this.shl = shl;
+	}
+
+	public String getSxrq() {
+		return sxrq;
+	}
+
+	public void setSxrq(String sxrq) {
+		this.sxrq = sxrq;
+	}
 }
