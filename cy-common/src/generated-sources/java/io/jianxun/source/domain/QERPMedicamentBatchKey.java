@@ -19,6 +19,8 @@ public class QERPMedicamentBatchKey extends BeanPath<ERPMedicamentBatchKey> {
 
     public static final QERPMedicamentBatchKey eRPMedicamentBatchKey = new QERPMedicamentBatchKey("eRPMedicamentBatchKey");
 
+    public final StringPath hw = createString("hw");
+
     public final StringPath pihao = createString("pihao");
 
     public final StringPath spid = createString("spid");
