@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +50,12 @@ public class MedicamentService extends AbstractBaseService<Medicament> {
 	// 获取erp系统中的药品基本信息
 	public ERPMedicament getErpMedicament(String spid) {
 		return erprepo.findOne(ERPMedicamentPredicates.erpSpidPredicate(spid));
+	}
+	
+	// 获取erp系统中的药品信息
+	public List<ERPMedicament> getErpMedicaments(String spmch){
+		return (List<ERPMedicament>) erprepo.findAll(ERPMedicamentPredicates.erpSpmchPredicate(spmch),
+				new Sort("spmch"));
 	}
 
 	@Transactional(readOnly = false)

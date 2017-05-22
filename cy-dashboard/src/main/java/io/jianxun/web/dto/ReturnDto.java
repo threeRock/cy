@@ -79,7 +79,7 @@ public class ReturnDto {
 
 	public static ReturnDto ok(String message) {
 		ReturnDto.OK.setMessage(message);
-		ReturnDto.OK.setCloseCurrent(true);
+		ReturnDto.OK.setCloseCurrent(false);
 		return ReturnDto.OK;
 	}
 

@@ -337,6 +337,11 @@ public class ERPMedicament {
 		this.pfpj = pfpj;
 	}
 
+	@Override
+	public String toString() {
+		return "药品信息 [药品名称=" + spmch + "]";
+	}
+
 	/**
 	 * a.yongyfl as 用药分类, a.is_jkyp as 是否进口药品, a.zhilbz as 质量标准, a.jiyao as
 	 * 基药类型, a.zbjg as 中标金额, a.zhuzlx as 主治类型, a.jingylb as 经营类别, a.khfl as

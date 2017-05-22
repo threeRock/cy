@@ -1,5 +1,8 @@
 package io.jianxun.web.business;
 
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 import com.querydsl.core.types.Predicate;
 
 import io.jianxun.extend.domain.business.Medicament;
@@ -26,6 +30,7 @@ import io.jianxun.extend.service.business.MedicamentService;
 import io.jianxun.source.domain.ERPMedicament;
 import io.jianxun.web.dto.CategorySetDto;
 import io.jianxun.web.dto.ReturnDto;
+import io.jianxun.web.dto.ValueLabelDto;
 import io.jianxun.web.utils.Utils;
 
 @Controller
@@ -62,6 +67,27 @@ public class MedicamentController {
 	ReturnDto categorySave(CategorySetDto dto) {
 		medicamentService.setCategory(dto.getErpMedicament(), dto.getMedicamentCatetory());
 		return ReturnDto.ok("药品类别设置成功", false, "medicament-page");
+	}
+
+	@RequestMapping(value = "/search")
+	@ResponseBody
+	public List<ValueLabelDto> search(@RequestParam("term") String name, Model model) {
+		if (StringUtils.isBlank(name))
+			return Lists.newArrayList();
+		List<ERPMedicament> ms = medicamentService.getErpMedicaments(name);
+		return getDto(ms);
+
+	}
+
+	private List<ValueLabelDto> getDto(List<ERPMedicament> ms) {
+		List<ValueLabelDto> vls = Lists.newArrayList();
+		for (ERPMedicament medicament : ms) {
+			ValueLabelDto d = new ValueLabelDto();
+			d.setLabel(medicament.toString());
+			d.setValue(medicament.getId().getSpid());
+			vls.add(d);
+		}
+		return vls;
 	}
 
 	private String templatePrefix() {

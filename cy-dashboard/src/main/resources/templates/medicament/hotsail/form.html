@@ -1,0 +1,23 @@
+<div class="bjui-pageContent">
+	<form action="#" id="hotsail_form"
+		th:action="@{/medicament/hotsail/create}" method="POST"
+		th:object="${dto}" data-toggle="validate" data-reload="false"
+		data-alertmsg="false">
+		<table class="table table-condensed table-hover" width="100%">
+			<tbody>
+				<tr>
+					<td><label class="control-label x95">选择药品信息：</label> <input
+						type="text" data-toggle="tags" data-tagname="spid"
+						data-width="700" data-url="medicament/search/" data-max="1" size="40">
+						</input></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</div>
+<div class="bjui-pageFooter">
+	<ul>
+		<li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+		<li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+	</ul>
+</div>

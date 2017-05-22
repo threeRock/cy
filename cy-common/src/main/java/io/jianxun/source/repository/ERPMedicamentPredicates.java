@@ -13,5 +13,10 @@ public class ERPMedicamentPredicates {
 		QERPMedicament er = QERPMedicament.eRPMedicament;
 		return er.id.spid.eq(spid);
 	}
+	
+	public static Predicate erpSpmchPredicate(String spmch) {
+		QERPMedicament er = QERPMedicament.eRPMedicament;
+		return er.spmch.containsIgnoreCase(spmch);
+	}
 
 }

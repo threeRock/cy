@@ -33,7 +33,21 @@ public enum PermissionDef {
 			DomainDef.MED_CATEGORY), MEDICAMENT_CATEGORY_CREATE("MEDICAMENT_CATEGORYCREATE", "新增", ModuleDef.MEDICAMENT,
 					DomainDef.MED_CATEGORY), MEDICAMENT_CATEGORY_MODIFY("MEDICAMENT_CATEGORYMODIFY", "修改",
 							ModuleDef.MEDICAMENT, DomainDef.MED_CATEGORY), MEDICAMENT_CATEGORY_REMOVE(
-									"MEDICAMENT_CATEGORYREMOVE", "删除", ModuleDef.MEDICAMENT, DomainDef.MED_CATEGORY);
+									"MEDICAMENT_CATEGORYREMOVE", "删除", ModuleDef.MEDICAMENT, DomainDef.MED_CATEGORY),
+	// 热销药品
+	MEDICAMENT_HOTSAIL_PAGE("MEDICAMENT_HOTSAILLIST", "列表", ModuleDef.MEDICAMENT,
+			DomainDef.MED_HOTSAIL), MEDICAMENT_HOTSAIL_CREATE("MEDICAMENT_HOTSAILCREATE", "新增", ModuleDef.MEDICAMENT,
+					DomainDef.MED_HOTSAIL), MEDICAMENT_HOTSAIL_MODIFY("MEDICAMENT_HOTSAILMODIFY", "修改",
+							ModuleDef.MEDICAMENT, DomainDef.MED_HOTSAIL), MEDICAMENT_HOTSAIL_REMOVE(
+									"MEDICAMENT_HOTSAILREMOVE", "删除", ModuleDef.MEDICAMENT, DomainDef.MED_HOTSAIL),
+	// 推荐药品
+	MEDICAMENT_RECOMMENDATION_PAGE("MEDICAMENT_RECOMMENDATIONLIST", "列表", ModuleDef.MEDICAMENT,
+			DomainDef.MED_RECOMMENDATION), MEDICAMENT_RECOMMENDATION_CREATE("MEDICAMENT_RECOMMENDATIONCREATE", "新增",
+					ModuleDef.MEDICAMENT,
+					DomainDef.MED_RECOMMENDATION), MEDICAMENT_RECOMMENDATION_MODIFY("MEDICAMENT_RECOMMENDATIONMODIFY",
+							"修改", ModuleDef.MEDICAMENT, DomainDef.MED_RECOMMENDATION), MEDICAMENT_RECOMMENDATION_REMOVE(
+									"MEDICAMENT_RECOMMENDATIONREMOVE", "删除", ModuleDef.MEDICAMENT,
+									DomainDef.MED_RECOMMENDATION);
 	// 操作代码
 	private String code;
 	// 描述
@@ -195,7 +209,9 @@ public enum PermissionDef {
 	public enum DomainDef {
 		// 系统配置
 		SYS_USER("sys_user", "用户管理", 0), SYS_ROLE("sys_role", "角色管理", 10), ORG_DEPART("org_depart", "机构管理",
-				20), MED_MEDICMENT("org_medicment", "药品信息管理", 30), MED_CATEGORY("org_category", "药品类别管理", 30);
+				20), MED_MEDICMENT("med_medicment", "药品信息管理", 30), MED_CATEGORY("med_category", "药品类别管理",
+						40), MED_HOTSAIL("med_hot", "热销药品管理",
+								50), MED_RECOMMENDATION("med_recommendation", "推荐药品管理", 50);
 
 		private String code;
 		private String name;

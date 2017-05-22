@@ -1,6 +1,6 @@
 <div class="bjui-pageHeader">
 	<form id="pagerForm" data-toggle="ajaxsearch"
-		th:action="@{/medicament/page/}" action="#" method="POST">
+		th:action="@{/medicament/hotsail/page/}" action="#" method="POST">
 		<input type="hidden" name="size" th:value="${size}" value="10" /> <input
 			type="hidden" name="page" th:value="${page}" value="0" /><input
 			type="hidden" name="orderField" th:value="${orderField}" /> <input
@@ -13,11 +13,9 @@
 	</form>
 	<hr style="margin: 5px 0" />
 	<div class="pull-left">
-		<button type="button" data-toggle="navtab" class="btn-red"
-			data-id="m-category-form-new"
-			data-url="medicament/category/set/{#bjui-selected}">设置药品类别</button>
-		<button type="button" data-toggle="navtab" class="btn-red"
-			data-id="m-category-form-new" data-url="medicament/pic/create">设置药品图片</button>
+		<button sec:authorize="hasAnyAuthority('MEDICAMENT_HOTSAILCREATE')"
+			type="button" data-toggle="navtab" class="btn-red"
+			data-id="m-hotsail-form-new" data-url="medicament/hotsail/create/">设置热销</button>
 	</div>
 </div>
 <div class="bjui-pageContent tableContent">
@@ -25,9 +23,9 @@
 		<thead>
 			<tr>
 
+				<th>药品类别</th>
 				<th>未停用</th>
 				<th>药品资料</th>
-				<th>药品类别</th>
 				<th>产地</th>
 				<th>单位</th>
 				<th>商品规格</th>
@@ -38,13 +36,14 @@
 				<th>是否进口药</th>
 				<th>质量标准</th>
 				<th>基药类型</th>
+				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="e : ${content}" th:attr="data-id=${e.erpInfo.id.spid}">
+				<td>热销药</td>
 				<td th:text="${e.erpInfo.beactive}">未停用</td>
 				<td th:text="${e.erpInfo.spmch}">药品资料</td>
-				<td th:text="${e.medcategory==null?'':e.medcategory.name}">药品类别</td>
 				<td th:text="${e.erpInfo.shpchd}">产地</td>
 				<td th:text="${e.erpInfo.dw}">单位</td>
 				<td th:text="${e.erpInfo.shpgg}">商品规格</td>
@@ -55,6 +54,9 @@
 				<td th:text="${e.erpInfo.is_jkyp}">是否进口药</td>
 				<td th:text="${e.erpInfo.zhilbz}">是否进口药</td>
 				<td th:text="${e.erpInfo.jiyao}">是否进口药</td>
+				<td><a sec:authorize="hasAnyAuthority('ROLEREMOVE')"
+					th:href="@{/medicament/remove/{id}(id=${e.id})}" href="#"
+					class="btn btn-red" data-toggle="doajax" data-confirm-msg="是否确定取消热销">取消热销</a></td>
 			</tr>
 		</tbody>
 	</table>
