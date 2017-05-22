@@ -21,7 +21,7 @@ public class ERPMedicament {
 	private ERPMedicamentKey id;
 	// 商品资料
 	private String spmch;
-	// 商品条码
+	// 是否停用
 	private String beactive;
 	// 产地
 	private String shpchd;

@@ -25,7 +25,7 @@ public class MedicamentService extends AbstractBaseService<Medicament> {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public Page<Medicament> getPage(Predicate predicate, Pageable pageable) {
-		Page<ERPMedicament> p = erprepo.findAll(pageable);
+		Page<ERPMedicament> p = erprepo.findAll(predicate,pageable);
 		List<Medicament> resuts = Lists.newArrayList();
 		for (ERPMedicament m : p.getContent()) {
 			Medicament temp = new Medicament();

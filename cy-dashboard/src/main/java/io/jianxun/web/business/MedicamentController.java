@@ -18,6 +18,7 @@ import com.querydsl.core.types.Predicate;
 
 import io.jianxun.extend.domain.business.Medicament;
 import io.jianxun.extend.service.business.MedicamentService;
+import io.jianxun.source.domain.ERPMedicament;
 import io.jianxun.web.utils.Utils;
 
 @Controller
@@ -28,8 +29,7 @@ public class MedicamentController {
 	 */
 	@RequestMapping(value = { "/page/" })
 	@PreAuthorize("hasAuthority('MEDICAMENTLIST')")
-	String page(Model model,
-			@QuerydslPredicate(root = Medicament.class) Predicate predicate,
+	String page(Model model, @QuerydslPredicate(root = ERPMedicament.class) Predicate predicate,
 			@PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
 			@RequestParam MultiValueMap<String, String> parameters) {
 		Page<Medicament> page = medicamentService.getPage(predicate, pageable);
@@ -46,9 +46,8 @@ public class MedicamentController {
 
 	@Autowired
 	private MedicamentService medicamentService;
-	
+
 	@Autowired
 	private Utils util;
-
 
 }
