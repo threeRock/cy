@@ -28,6 +28,20 @@ public class MedicamentService extends AbstractBaseService<Medicament> {
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * io.jianxun.extend.service.AbstractBaseService#findActiveOne(com.querydsl.
+	 * core.types.Predicate)
+	 */
+	@Override
+	public Medicament findActiveOne(Predicate predicate) {
+		Medicament medicament = super.findActiveOne(predicate);
+		medicament.setErpInfo(getErpMedicament(medicament.getErpSpid()));
+		return super.findActiveOne(predicate);
+	}
+
 	public Page<Medicament> getPage(Predicate predicate, Pageable pageable) {
 		Page<ERPMedicament> p = erprepo.findAll(predicate, pageable);
 		List<Medicament> resuts = Lists.newArrayList();
@@ -51,9 +65,9 @@ public class MedicamentService extends AbstractBaseService<Medicament> {
 	public ERPMedicament getErpMedicament(String spid) {
 		return erprepo.findOne(ERPMedicamentPredicates.erpSpidPredicate(spid));
 	}
-	
+
 	// 获取erp系统中的药品信息
-	public List<ERPMedicament> getErpMedicaments(String spmch){
+	public List<ERPMedicament> getErpMedicaments(String spmch) {
 		return (List<ERPMedicament>) erprepo.findAll(ERPMedicamentPredicates.erpSpmchPredicate(spmch),
 				new Sort("spmch"));
 	}

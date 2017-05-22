@@ -13,11 +13,11 @@
 	</form>
 	<hr style="margin: 5px 0" />
 	<div class="pull-left">
-		<button type="button" data-toggle="navtab" class="btn-red"
+		<button sec:authorize="hasAnyAuthority('MEDICAMENTCATEGORYSET')" type="button" data-toggle="navtab" class="btn-red"
 			data-id="m-category-form-new"
 			data-url="medicament/category/set/{#bjui-selected}">设置药品类别</button>
-		<button type="button" data-toggle="navtab" class="btn-red"
-			data-id="m-category-form-new" data-url="medicament/pic/create">设置药品图片</button>
+		<button sec:authorize="hasAnyAuthority('MEDICAMENTPICLIST')" type="button" data-toggle="navtab" class="btn-red"
+			data-id="m-pic-form-new" data-url="medicament/pic/list/{#bjui-selected}">药品图片浏览</button>
 	</div>
 </div>
 <div class="bjui-pageContent tableContent">

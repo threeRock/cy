@@ -1,0 +1,51 @@
+<script type="text/javascript">
+	function pic_upload_success(file, data) {
+		var json = $.parseJSON(data)
+		$(this).bjuiajax('ajaxDone', json)
+		if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
+			alert("图片上传成功,请重新打开浏览！");
+		}
+	}
+</script>
+<div class="bjui-pageHeader">
+	<form id="pagerForm" data-toggle="ajaxsearch"
+		th:action="@{/medicament/pic/list/{spid}(spid=${medicament.erpSpid})}" action="#" method="POST">
+	</form>
+	<hr style="margin: 5px 0" />
+</div>
+<div class="bjui-pageContent">
+	<table class="table table-condensed table-hover" width="100%">
+		<tbody>
+			<tr>
+				<td colspan="2"><label class="control-label x105">药品信息：</label>
+					<span th:text="${medicament.erpInfo.toString()}">药品信息</span>
+				<input type="hidden" id="pic_spid" name="spid" th:value="${medicament.erpSpid}"/> 
+					</td>
+			</tr>
+			<div th:each="pic : ${medicament.pics}">
+				<tr>
+					<td><img th:if="${!#strings.isEmpty(pic)}"
+						th:src="@{/medicament/pic/{path}(path=${pic})}" width="300"
+						height="110" /></td>
+					<td><a sec:authorize="hasAnyAuthority('ROLEREMOVE')"
+						th:href="@{/medicament/pic/remove/{path}/{spid}(spid=${medicament.erpSpid},path=${pic})}"
+						href="#" class="btn btn-red" data-toggle="doajax"
+						data-confirm-msg="是否确定删除图片">删除图片</a></td>
+				</tr>
+			</div>
+		</tbody>
+	</table>
+</div>
+<div class="bjui-pageFooter">
+	<div class="pull-left">
+		<div style="display: inline-block; vertical-align: middle;">
+			<div id="pic_up" data-toggle="upload"
+				data-uploader="/medicament/pic/upload/{#pic_spid}"
+				data-file-size-limit="1024000000" data-auto="true"
+				data-file-type-exts="*.jpg;*.png;*.gif;*.mpg"
+				 data-multi="true"
+				data-on-upload-success="pic_upload_success" data-icon="cloud-upload"></div>
+
+		</div>
+	</div>
+</div>

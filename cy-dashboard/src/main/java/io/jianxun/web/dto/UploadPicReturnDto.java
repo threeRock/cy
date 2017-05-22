@@ -1,16 +1,18 @@
 package io.jianxun.web.dto;
 
+import java.util.List;
+
 public class UploadPicReturnDto {
 
 	private Integer statusCode;
 	private String message;
-	private String filename;
+	private List<String> files;
 
-	public UploadPicReturnDto(Integer statusCode, String message, String filename) {
+	public UploadPicReturnDto(Integer statusCode, String message, List<String> files) {
 		super();
 		this.statusCode = statusCode;
 		this.message = message;
-		this.filename = filename;
+		this.files = files;
 	}
 
 	public Integer getStatusCode() {
@@ -29,12 +31,19 @@ public class UploadPicReturnDto {
 		this.message = message;
 	}
 
-	public String getFilename() {
-		return filename;
+	/**
+	 * @return the files
+	 */
+	public List<String> getFiles() {
+		return files;
 	}
 
-	public void setFilename(String filename) {
-		this.filename = filename;
+	/**
+	 * @param files
+	 *            the files to set
+	 */
+	public void setFiles(List<String> files) {
+		this.files = files;
 	}
 
 }

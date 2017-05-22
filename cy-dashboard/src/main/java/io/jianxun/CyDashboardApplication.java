@@ -2,6 +2,7 @@ package io.jianxun;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -10,6 +11,7 @@ import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import io.jianxun.config.AuditorAwareImpl;
 import io.jianxun.extend.domain.business.User;
+import io.jianxun.web.business.StorageProperties;
 
 /*
 长药后台管理
@@ -17,6 +19,7 @@ import io.jianxun.extend.domain.business.User;
 @SpringBootApplication
 @EnableJpaAuditing
 @EnableSpringDataWebSupport
+@EnableConfigurationProperties(StorageProperties.class)
 public class CyDashboardApplication {
 
 	@Bean
