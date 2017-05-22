@@ -26,7 +26,14 @@ public enum PermissionDef {
 					DomainDef.ORG_DEPART), DEPART_REMOVE("DEPARTREMOVE", "删除", ModuleDef.ORGANIZATION,
 							DomainDef.ORG_DEPART),
 	// 药品基本信息
-	MEDICAMENT_PAGE("MEDICAMENTLIST", "列表", ModuleDef.MEDICAMENT, DomainDef.MED_MEDICMENT);
+	MEDICAMENT_PAGE("MEDICAMENTLIST", "列表", ModuleDef.MEDICAMENT, DomainDef.MED_MEDICMENT), MEDICAMENT_CATEGORYSET(
+			"MEDICAMENTCATEGORYSET", "类别设置", ModuleDef.MEDICAMENT, DomainDef.MED_MEDICMENT),
+	// 药品类别
+	MEDICAMENT_CATEGORY_PAGE("MEDICAMENT_CATEGORYLIST", "列表", ModuleDef.MEDICAMENT,
+			DomainDef.MED_CATEGORY), MEDICAMENT_CATEGORY_CREATE("MEDICAMENT_CATEGORYCREATE", "新增", ModuleDef.MEDICAMENT,
+					DomainDef.MED_CATEGORY), MEDICAMENT_CATEGORY_MODIFY("MEDICAMENT_CATEGORYMODIFY", "修改",
+							ModuleDef.MEDICAMENT, DomainDef.MED_CATEGORY), MEDICAMENT_CATEGORY_REMOVE(
+									"MEDICAMENT_CATEGORYREMOVE", "删除", ModuleDef.MEDICAMENT, DomainDef.MED_CATEGORY);
 	// 操作代码
 	private String code;
 	// 描述
@@ -187,7 +194,8 @@ public enum PermissionDef {
 	// 模型定义
 	public enum DomainDef {
 		// 系统配置
-		SYS_USER("sys_user", "用户管理", 0), SYS_ROLE("sys_role", "角色管理", 10), ORG_DEPART("org_depart", "机构管理", 20), MED_MEDICMENT("org_medicment", "机构管理", 30);
+		SYS_USER("sys_user", "用户管理", 0), SYS_ROLE("sys_role", "角色管理", 10), ORG_DEPART("org_depart", "机构管理",
+				20), MED_MEDICMENT("org_medicment", "药品信息管理", 30), MED_CATEGORY("org_category", "药品类别管理", 30);
 
 		private String code;
 		private String name;

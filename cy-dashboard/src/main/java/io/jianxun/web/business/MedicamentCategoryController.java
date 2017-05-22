@@ -38,7 +38,7 @@ public class MedicamentCategoryController {
 
 	@InitBinder("medicamentCategory")
 	public void initBinder(WebDataBinder webDataBinder) {
-		 webDataBinder.addValidators(medicamentCategoryValidator);
+		webDataBinder.addValidators(medicamentCategoryValidator);
 
 	}
 
@@ -46,7 +46,7 @@ public class MedicamentCategoryController {
 	 * 分页列表 支持 查询 分页 及 排序
 	 */
 	@RequestMapping(value = { "/page" })
-	@PreAuthorize("hasAuthority('MEDICAMENTCATEGORYLIST')")
+	@PreAuthorize("hasAuthority('MEDICAMENT_CATEGORYLIST')")
 	String page(Model model, @QuerydslPredicate(root = MedicamentCatetory.class) Predicate predicate,
 			@PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
 			@RequestParam MultiValueMap<String, String> parameters) {
@@ -60,10 +60,9 @@ public class MedicamentCategoryController {
 	 * 新增表单页面
 	 */
 	@GetMapping("create")
-	@PreAuthorize("hasAuthority('MEDICAMENTCATEGORYCREATE')")
-	String createForm(@PathVariable("parentId") Long parentId, Model model,
-			@RequestParam MultiValueMap<String, String> parameters) {
-		model.addAttribute("medicamentCategory", new MedicamentCatetory());
+	@PreAuthorize("hasAuthority('MEDICAMENT_CATEGORYCREATE')")
+	String createForm(Model model, @RequestParam MultiValueMap<String, String> parameters) {
+		model.addAttribute("medicamentCatetory", new MedicamentCatetory());
 		util.addCreateFormAction(model);
 		return templatePrefix() + Utils.SAVE_TEMPLATE_SUFFIX;
 	}
@@ -76,13 +75,13 @@ public class MedicamentCategoryController {
 	 * @return
 	 */
 	@PostMapping("create")
-	@PreAuthorize("hasAuthority('MEDICAMENTCATEGORYCREATE')")
+	@PreAuthorize("hasAuthority('MEDICAMENT_CATEGORYCREATE')")
 	@ResponseBody
 	ReturnDto createSave(@Valid MedicamentCatetory medicamentCategory,
 			@RequestParam MultiValueMap<String, String> parameters) {
 		this.medicamentCategoryService.save(medicamentCategory);
-		return ReturnDto.ok(localeMessageSourceService.getMessage("medicamentCategory.save.success"), true,
-				"maintype-page");
+		return ReturnDto.ok(localeMessageSourceService.getMessage("medicamentCategory.save.success"), false,
+				"medicamentcategory-page");
 	}
 
 	/**
@@ -93,7 +92,7 @@ public class MedicamentCategoryController {
 	 * @return
 	 */
 	@GetMapping(value = "/modify/{id}")
-	@PreAuthorize("hasAuthority('MEDICAMENTCATEGORYMODIFY')")
+	@PreAuthorize("hasAuthority('MEDICAMENT_CATEGORYMODIFY')")
 	public String modify(@PathVariable("id") Long id, Model model) {
 		MedicamentCatetory medicamentCatetory = medicamentCategoryService.findActiveOne(id);
 		model.addAttribute("medicamentCatetory", medicamentCatetory);
@@ -110,17 +109,17 @@ public class MedicamentCategoryController {
 	 * @return
 	 */
 	@PostMapping(value = "/modify")
-	@PreAuthorize("hasAuthority('MEDICAMENTCATEGORYMODIFY')")
+	@PreAuthorize("hasAuthority('MEDICAMENT_CATEGORYMODIFY')")
 	@ResponseBody
 	public ReturnDto modifySave(
-			@Valid @ModelAttribute(name = "medicamentCatetory") MedicamentCatetory medicamentCatetory, Model model) {
+			@Valid @ModelAttribute(name = "medicamentCategory") MedicamentCatetory medicamentCatetory, Model model) {
 		medicamentCategoryService.save(medicamentCatetory);
-		return ReturnDto.ok(localeMessageSourceService.getMessage("medicamentCategory.save.success"), true,
-				"maintype-page");
+		return ReturnDto.ok(localeMessageSourceService.getMessage("medicamentCategory.save.success"), false,
+				"medicamentcategory-page");
 	}
 
 	@PostMapping("remove/{id}")
-	@PreAuthorize("hasAuthority('MEDICAMENTCATEGORYREMOVE')")
+	@PreAuthorize("hasAuthority('MEDICAMENT_CATEGORYREMOVE')")
 	@ResponseBody
 	public ReturnDto remove(@PathVariable("id") Long id) {
 		medicamentCategoryService.delete(id);
@@ -138,7 +137,7 @@ public class MedicamentCategoryController {
 	@ResponseBody
 	public String checkNameIsUnique(@RequestParam("name") String name, @RequestParam("id") Long id) {
 		if (!this.medicamentCategoryService.validateNameUnique(name, id))
-			return localeMessageSourceService.getMessage("medicamentCategory.name.isUsed", new Object[] { name });
+			return "[" + name + "]类别名称已经使用，不能重复";
 		return "";
 	}
 

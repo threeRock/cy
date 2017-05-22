@@ -1,0 +1,30 @@
+<div class="bjui-pageContent">
+	<form action="#" id="maintype_form"
+		th:action="@{/medicament/category/set}" method="POST"
+		th:object="${dto}" data-toggle="validate" data-alertmsg="false">
+		<input type="hidden" name="id" th:value="${id}" />
+		<table class="table table-condensed table-hover" width="100%">
+			<tbody>
+				<tr>
+					<td><label class="control-label x95">药品名称：</label> <span
+						th:text="${dto.erpMedicament.spmch}"></span> <input type="hidden"
+						th:value="${dto.erpMedicament.id.spid}" name="erpMedicament.id.spid" /></td>
+				</tr>
+				<tr>
+					<td><label class="control-label x95">药品类别：</label> <select
+						data-rule="required;" data-toggle="selectpicker" data-width="150"
+						th:field="*{medicamentCatetory}">
+							<option th:each="item : ${categories}" th:value="${item.id}"
+								th:text="${item.name}">药品类别</option>
+					</select></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</div>
+<div class="bjui-pageFooter">
+	<ul>
+		<li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+		<li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+	</ul>
+</div>

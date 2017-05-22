@@ -14,7 +14,7 @@
 	<hr style="margin: 5px 0" />
 	<div class="pull-left">
 		<button
-			sec:authorize="hasAnyAuthority('ALL','MEDICAMENTCATEGORYCREATE')"
+			sec:authorize="hasAnyAuthority('ALL','MEDICAMENT_CATEGORYCREATE')"
 			type="button" data-toggle="navtab" class="btn-red"
 			data-id="m-category-form-new" data-url="medicament/category/create">新增药品类别</button>
 	</div>
@@ -30,11 +30,11 @@
 		<tbody>
 			<tr th:each="e : ${content}" th:attr="data-id=${e.id}">
 				<td th:text="${e.name}">名称</td>
-				<td><a sec:authorize="hasAnyAuthority('MEDICAMENTCATEGORYMODIFY')"
+				<td><a sec:authorize="hasAnyAuthority('MEDICAMENT_CATEGORYMODIFY')"
 					th:href="@{/medicament/category/modify/{id}(id=${e.id})}" href="#"
 					class="btn btn-green" data-toggle="navtab"
 					data-id="role-modify-form" data-title="修改药品类别">修改</a> <a
-					sec:authorize="hasAnyAuthority('MEDICAMENTCATEGORYREMOVE')"
+					sec:authorize="hasAnyAuthority('MEDICAMENT_CATEGORYREMOVE')"
 					th:href="@{/medicament/category/remove/{id}(id=${e.id})}" href="#"
 					class="btn btn-red" data-toggle="doajax" data-confirm-msg="是否确定删除">刪除</a></td>
 			</tr>

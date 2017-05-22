@@ -267,6 +267,30 @@
 
 			
 
+									
+
+			
+
+						
+
+			
+
+												
+
+			
+
+						
+
+			
+
+									
+
+			
+
+						
+
+			
+
 		}
 		/*<![CDATA[*/
 		if (treeNode.target && treeNode.target == 'dialog')
@@ -337,14 +361,13 @@
 							data-toggle="slidebar"><i class="fa fa-check-square-o"></i>
 								长江药业信息管理</a>
 							<div class="items hide" data-noinit="true">
-								<ul
-									class="menu-items" data-tit="药品信息管理" data-faicon="cog">
-									<li><a
-										href="#" th:href="@{/medicament/page/}"
-										data-options="{id:'maintype-page', faicon:'devicet-right'}">药品基本信息</a></li>
-									<li><a
+								<ul class="menu-items" data-tit="药品信息管理" data-faicon="cog">
+									<li><a href="#" th:href="@{/medicament/page/}"
+										data-options="{id:'medicament-page', faicon:'devicet-right'}">药品基本信息</a></li>
+									<li
+										sec:authorize="hasAnyAuthority('MEDICAMENT_CATEGORYLIST','MEDICAMENT_CATEGORYCREATE','MEDICAMENT_CATEGORYMODIFY','MEDICAMENT_CATEGORYREMOVE')"><a
 										href="#" th:href="@{/medicament/category/page/}"
-										data-options="{id:'maintype-page', faicon:'devicet-right'}">药品类别</a></li>
+										data-options="{id:'medicamentcategory-page', faicon:'devicet-right'}">药品类别</a></li>
 								</ul>
 								<ul
 									sec:authorize="hasAnyAuthority('USERLIST','USERCREATE','USERMODIFY','USERREMOVE','USERRESETPASSWROD','ROLELIST','ROLECREATE','ROLEMODIFY','ROLEREMOVE')"
