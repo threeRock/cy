@@ -60,7 +60,8 @@ public class UserController {
 	@GetMapping(value = "tree")
 	public String tree(Model model, @RequestParam MultiValueMap<String, String> parameters) {
 		try {
-			model.addAttribute("tree", mapper.writeValueAsString(DepartTree.getDepartTree(this.departService.getSubDeparts(currentLoginInfo.currentLoginUser().getDepart()))));
+			model.addAttribute("tree", mapper.writeValueAsString(DepartTree
+					.getDepartTree(this.departService.getSubDeparts(currentLoginInfo.currentLoginUser().getDepart()))));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			throw new BusinessException(localeMessageSourceService.getMessage("depart.tree.error"));
@@ -142,7 +143,6 @@ public class UserController {
 		return templatePrefix() + "resetpassword";
 	}
 
-
 	@GetMapping("changepassword/{id}")
 	@PreAuthorize("hasAuthority('USERCHANGEPASSWROD')")
 	String changePasswordForm(@PathVariable("id") Long userId, Model model,
@@ -197,7 +197,7 @@ public class UserController {
 	@ResponseBody
 	public ReturnDto modifySave(@Valid @ModelAttribute(name = "user") User entity, Model model) {
 		userService.save(entity);
-		return ReturnDto.ok(localeMessageSourceService.getMessage("user.save.successd"));
+		return ReturnDto.ok(localeMessageSourceService.getMessage("user.save.successd"), false, "user-page");
 	}
 
 	/**
@@ -239,7 +239,7 @@ public class UserController {
 	}
 
 	private ReturnDto getOptionReturn(String messagekey) {
-		return ReturnDto.ok(localeMessageSourceService.getMessage(messagekey), true, "", "user-page-layout");
+		return ReturnDto.ok(localeMessageSourceService.getMessage(messagekey), false, "user-page");
 	}
 
 	private void addRoleList(Model model) {

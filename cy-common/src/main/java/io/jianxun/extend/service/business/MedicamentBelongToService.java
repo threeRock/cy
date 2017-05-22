@@ -28,7 +28,6 @@ public class MedicamentBelongToService extends AbstractBaseService<MedicamentBel
 		return page;
 	}
 
-
 	@Transactional(readOnly = false)
 	public void hotsail(MedicamentBelongTo medicamentBelongTo) {
 		belongTo(medicamentBelongTo, BelongTo.HOTSAIL);
@@ -40,12 +39,17 @@ public class MedicamentBelongToService extends AbstractBaseService<MedicamentBel
 	}
 
 	private void belongTo(MedicamentBelongTo medicamentBelongTo, BelongTo belongTo) {
-		medicamentBelongTo.setBelongTo(belongTo.getName());
-		medicamentBelongTo.setErpInfo(medicamentService.getErpMedicament(medicamentBelongTo.getSpid()));
-		save(medicamentBelongTo);
+		if (!medicamentBelongToService
+				.exists(MedicamentBelongToPredicates.erpSpidPredicate(medicamentBelongTo.getSpid()))) {
+			medicamentBelongTo.setBelongTo(belongTo.getName());
+			medicamentBelongTo.setErpInfo(medicamentService.getErpMedicament(medicamentBelongTo.getSpid()));
+			save(medicamentBelongTo);
+		}
 	}
-	
+
 	@Autowired
 	private MedicamentService medicamentService;
+	@Autowired
+	private MedicamentBelongToService medicamentBelongToService;
 
 }

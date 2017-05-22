@@ -2,12 +2,13 @@ package io.jianxun.extend.service.business;
 
 import java.util.List;
 
-import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.collect.Lists;
 
 import io.jianxun.extend.domain.business.Depart;
 import io.jianxun.extend.service.AbstractBaseService;

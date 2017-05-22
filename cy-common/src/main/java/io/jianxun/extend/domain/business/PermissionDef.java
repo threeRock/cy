@@ -20,11 +20,12 @@ public enum PermissionDef {
 	ROLE_PAGE("ROLELIST", "列表", ModuleDef.SYS, DomainDef.SYS_ROLE), ROLE_CREATE("ROLECREATE", "新增", ModuleDef.SYS,
 			DomainDef.SYS_ROLE), ROLE_MODIFY("ROLEMODIFY", "修改", ModuleDef.SYS,
 					DomainDef.SYS_ROLE), ROLE_REMOVE("ROLEREMOVE", "删除", ModuleDef.SYS, DomainDef.SYS_ROLE),
-	// 机构
+	/*// 机构
 	DEPART_PAGE("DEPARTLIST", "列表", ModuleDef.ORGANIZATION, DomainDef.ORG_DEPART), DEPART_CREATE("DEPARTCREATE", "新增",
 			ModuleDef.ORGANIZATION, DomainDef.ORG_DEPART), DEPART_MODIFY("DEPARTMODIFY", "修改", ModuleDef.ORGANIZATION,
 					DomainDef.ORG_DEPART), DEPART_REMOVE("DEPARTREMOVE", "删除", ModuleDef.ORGANIZATION,
 							DomainDef.ORG_DEPART),
+							*/
 	// 药品基本信息
 	MEDICAMENT_PAGE("MEDICAMENTLIST", "列表", ModuleDef.MEDICAMENT, DomainDef.MED_MEDICMENT), MEDICAMENT_CATEGORYSET(
 			"MEDICAMENTCATEGORYSET", "类别设置", ModuleDef.MEDICAMENT, DomainDef.MED_MEDICMENT),
@@ -105,7 +106,7 @@ public enum PermissionDef {
 	static {
 		for (PermissionDef def : PermissionDef.values()) {
 			// 系统设置权限组
-			if (def.getDomain().equals(ModuleDef.SYS) || def.getDomain().equals(ModuleDef.ORGANIZATION)) {
+			if (def.getDomain().equals(ModuleDef.SYS)) {
 				initValue("sys", def);
 			}
 			valueMaps.put(def.code, def);
@@ -156,7 +157,10 @@ public enum PermissionDef {
 
 	// 模块定义
 	public enum ModuleDef {
-		SYS("sys", "系统设置", 99), ORGANIZATION("org", "机构管理", 7), MEDICAMENT("medicment", "药品信息管理", 7);
+		SYS("sys", "系统设置", 99), 
+		/*
+		ORGANIZATION("org", "机构管理", 7), 
+		*/MEDICAMENT("medicment", "药品信息管理", 7);
 		private String code;
 		private String name;
 		private Integer sortNum = 99;
@@ -208,8 +212,11 @@ public enum PermissionDef {
 	// 模型定义
 	public enum DomainDef {
 		// 系统配置
-		SYS_USER("sys_user", "用户管理", 0), SYS_ROLE("sys_role", "角色管理", 10), ORG_DEPART("org_depart", "机构管理",
-				20), MED_MEDICMENT("med_medicment", "药品信息管理", 30), MED_CATEGORY("med_category", "药品类别管理",
+		SYS_USER("sys_user", "用户管理", 0), SYS_ROLE("sys_role", "角色管理", 10),
+		/*
+		ORG_DEPART("org_depart", "机构管理",
+				20),
+				*/ MED_MEDICMENT("med_medicment", "药品信息管理", 30), MED_CATEGORY("med_category", "药品类别管理",
 						40), MED_HOTSAIL("med_hot", "热销药品管理",
 								50), MED_RECOMMENDATION("med_recommendation", "推荐药品管理", 50);
 
