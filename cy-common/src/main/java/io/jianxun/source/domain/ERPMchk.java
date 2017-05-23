@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 药品基本信息
+ * 单位基本信息
  * @author Administrator
  *
  */

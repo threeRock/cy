@@ -33,16 +33,20 @@ public class QOrder extends EntityPathBase<Order> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate;
 
+    public final StringPath dwbh = createString("dwbh");
+
+    public final StringPath dwmch = createString("dwmch");
+
     //inherited
     public final NumberPath<Long> id;
+
+    public final ListPath<OrderItem, QOrderItem> items = this.<OrderItem, QOrderItem>createList("items", OrderItem.class, QOrderItem.class, PathInits.DIRECT2);
 
     // inherited
     public final QUser lastModifieBy;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate;
-
-    public final StringPath name = createString("name");
 
     //inherited
     public final NumberPath<Long> version;
