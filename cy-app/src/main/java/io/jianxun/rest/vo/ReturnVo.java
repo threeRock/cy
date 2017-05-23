@@ -57,7 +57,7 @@ public class ReturnVo<T> {
 	public static ReturnVo<ErrorMessage> businessError(String message) {
 		return error("系统异常", message);
 	}
-	
+
 	public static ReturnVo<ErrorMessage> badCredentialsError(String message) {
 		return error("用户密码错误", message);
 	}

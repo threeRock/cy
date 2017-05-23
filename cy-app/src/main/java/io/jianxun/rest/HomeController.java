@@ -13,7 +13,7 @@ import io.jianxun.rest.vo.HomeInfoVo;
 import io.jianxun.rest.vo.ReturnVo;
 
 @RestController
-public class HomeController {
+public class HomeController extends BaseRestController {
 
 	/**
 	 * 主界面数据接口
