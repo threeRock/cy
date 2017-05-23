@@ -1,5 +1,6 @@
 package io.jianxun.rest.vo;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 
 public class ReturnVo<T> {
@@ -44,6 +45,17 @@ public class ReturnVo<T> {
 
 	public static <T> ReturnVo<T> ok(T data) {
 		ReturnVo<T> vo = new ReturnVo<T>();
+		vo.setCode(HttpStatus.SC_OK);
+		vo.setSuccess(true);
+		vo.setData(data);
+		return vo;
+	}
+
+	public static <T> ReturnVo<T> ok(T data, String result) {
+		ReturnVo<T> vo = new ReturnVo<T>();
+		if(StringUtils.isBlank(result))
+			result = "操作成功";
+		vo.setResult(result);
 		vo.setCode(HttpStatus.SC_OK);
 		vo.setSuccess(true);
 		vo.setData(data);
