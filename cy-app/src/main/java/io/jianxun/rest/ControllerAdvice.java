@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -33,8 +34,18 @@ public class ControllerAdvice {
 		ex.printStackTrace();
 		return ReturnVo.businessError(ex.getMessage());
 	}
+	
+	
+	
+	@ExceptionHandler(BadCredentialsException.class)
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public ReturnVo<ErrorMessage> handleBadCredentialsException(BadCredentialsException ex) {
+		ex.printStackTrace();
+		return ReturnVo.badCredentialsError(ex.getMessage());
+	}
 
 	@ExceptionHandler(AccessDeniedException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ReturnVo<ErrorMessage> handleAccessDeniedException(AccessDeniedException ex) {
 		ex.printStackTrace();
 		return ReturnVo.accessError(ex.getMessage());
