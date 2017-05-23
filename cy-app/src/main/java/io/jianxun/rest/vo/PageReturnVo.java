@@ -6,13 +6,13 @@ import org.springframework.data.domain.Page;
 public class PageReturnVo<T> extends ReturnVo<T> {
 
 	// 总页数
-	private long totalPages;
+	private long totalPages = 0L;
 	// 总记录数
-	private long totalElements;
+	private long totalElements = 0L;
 	// 当前页
-	private int number;
+	private int number = 0;
 	// 记录数/页
-	public int size;
+	public int size = 20;
 
 	public long getTotalPages() {
 		return totalPages;

@@ -5,9 +5,9 @@ import org.apache.http.HttpStatus;
 public class ReturnVo<T> {
 
 	//
-	private String result;
-	private int code;
-	private boolean success;
+	private String result = "";
+	private int code = HttpStatus.SC_OK;
+	private boolean success = true;
 	private T data;
 
 	public String getResult() {
