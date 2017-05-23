@@ -6,21 +6,24 @@ import javax.persistence.Table;
 
 /**
  * 单位基本信息
+ * 
  * @author Administrator
  *
  */
 @Entity
 @Table(name = "mchk")
 public class ERPMchk {
-	private String dwmch;//单位名,
+	private String dwmch;// 单位名,
 	@Id
-	private String dwbh;// 单位编号,
-	private String ywy;//业务员,
-	private String jingyfw;//经营范围,
-	private String shouhdz;//收货地址,
-	private String jslx;//结算类型,
-	private String xshlx;//销售类型,
-	private String khquyu;//客户区域 
+	private String dwbh;//  单位编号,
+	private String ywy;// 业务员,
+	private String jingyfw;// 经营范围,
+	private String shouhdz;// 收货地址,
+	private String jslx;// 结算类型,
+	private String xshlx;// 销售类型,
+	private String khquyu;// 客户区域 
+	// 是为客户、否为供应商
+	private String isxs;// 客户标识
 
 	public String getDwmch() {
 		return dwmch;
@@ -85,4 +88,13 @@ public class ERPMchk {
 	public void setKhquyu(String khquyu) {
 		this.khquyu = khquyu;
 	}
+
+	public String getIsxs() {
+		return isxs;
+	}
+
+	public void setIsxs(String isxs) {
+		this.isxs = isxs;
+	}
+
 }

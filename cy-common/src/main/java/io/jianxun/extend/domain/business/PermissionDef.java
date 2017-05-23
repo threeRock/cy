@@ -54,7 +54,9 @@ public enum PermissionDef {
 					DomainDef.MED_RECOMMENDATION), MEDICAMENT_RECOMMENDATION_MODIFY("MEDICAMENT_RECOMMENDATIONMODIFY",
 							"修改", ModuleDef.MEDICAMENT, DomainDef.MED_RECOMMENDATION), MEDICAMENT_RECOMMENDATION_REMOVE(
 									"MEDICAMENT_RECOMMENDATIONREMOVE", "删除", ModuleDef.MEDICAMENT,
-									DomainDef.MED_RECOMMENDATION);
+									DomainDef.MED_RECOMMENDATION),
+	// 订单
+	ORDER_PAGE("ORDERLIST", "列表", ModuleDef.ORDER, DomainDef.ORDER_ORDER);
 	// 操作代码
 	private String code;
 	// 描述
@@ -165,7 +167,7 @@ public enum PermissionDef {
 	public enum ModuleDef {
 		SYS("sys", "系统设置", 99), /*
 								 * ORGANIZATION("org", "机构管理", 7),
-								 */MEDICAMENT("medicment", "药品信息管理", 7);
+								 */MEDICAMENT("medicment", "药品信息管理", 7), ORDER("order", "订单信息", 17);
 		private String code;
 		private String name;
 		private Integer sortNum = 99;
@@ -221,8 +223,8 @@ public enum PermissionDef {
 				10), /*
 						 * ORG_DEPART("org_depart", "机构管理", 20),
 						 */ MED_MEDICMENT("med_medicment", "药品信息管理", 30), MED_CATEGORY("med_category", "药品类别管理",
-						40), MED_HOTSAIL("med_hot", "热销药品管理",
-								50), MED_RECOMMENDATION("med_recommendation", "推荐药品管理", 50);
+						40), MED_HOTSAIL("med_hot", "热销药品管理", 50), MED_RECOMMENDATION("med_recommendation", "推荐药品管理",
+								50), ORDER_ORDER("order_order", "订单查询", 60);
 
 		private String code;
 		private String name;

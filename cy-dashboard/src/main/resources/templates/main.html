@@ -261,6 +261,8 @@
 			zTree.expandNode(treeNode, !treeNode.open, false, true, true)
 			return
 
+			
+
 		}
 		/*<![CDATA[*/
 		if (treeNode.target && treeNode.target == 'dialog')
@@ -366,6 +368,12 @@
 										data-options="{id:'depart-page', faicon:'caret-right'}">机构管理</a></li>
 								</ul>
 -->
+								<ul
+									sec:authorize="hasAnyAuthority('ORDERLIST')"
+									class="menu-items" data-tit="订单管理" data-faicon="cog">
+									<li><a href="#" th:href="@{/order/page/}"
+										data-options="{id:'order-page', faicon:'caret-right'}">订单查询</a></li>
+								</ul>
 							</div></li>
 					</ul>
 				</div>

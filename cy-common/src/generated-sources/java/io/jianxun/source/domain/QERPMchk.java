@@ -23,6 +23,8 @@ public class QERPMchk extends EntityPathBase<ERPMchk> {
 
     public final StringPath dwmch = createString("dwmch");
 
+    public final StringPath isxs = createString("isxs");
+
     public final StringPath jingyfw = createString("jingyfw");
 
     public final StringPath jslx = createString("jslx");
