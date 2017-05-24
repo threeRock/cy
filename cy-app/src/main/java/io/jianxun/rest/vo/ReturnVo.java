@@ -1,13 +1,12 @@
 package io.jianxun.rest.vo;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpStatus;
 
 public class ReturnVo<T> {
 
 	//
 	private String result = "";
-	private int code = HttpStatus.SC_OK;
+	private int code = 200;
 	private boolean success = true;
 	private T data;
 
@@ -45,7 +44,7 @@ public class ReturnVo<T> {
 
 	public static <T> ReturnVo<T> ok(T data) {
 		ReturnVo<T> vo = new ReturnVo<T>();
-		vo.setCode(HttpStatus.SC_OK);
+		vo.setCode(200);
 		vo.setSuccess(true);
 		vo.setData(data);
 		return vo;
@@ -53,10 +52,10 @@ public class ReturnVo<T> {
 
 	public static <T> ReturnVo<T> ok(T data, String result) {
 		ReturnVo<T> vo = new ReturnVo<T>();
-		if(StringUtils.isBlank(result))
+		if (StringUtils.isBlank(result))
 			result = "操作成功";
 		vo.setResult(result);
-		vo.setCode(HttpStatus.SC_OK);
+		vo.setCode(200);
 		vo.setSuccess(true);
 		vo.setData(data);
 		return vo;
@@ -80,7 +79,7 @@ public class ReturnVo<T> {
 
 	public static ReturnVo<ErrorMessage> error(String result, String message) {
 		ReturnVo<ErrorMessage> vo = new ReturnVo<ErrorMessage>();
-		vo.setCode(HttpStatus.SC_BAD_REQUEST);
+		vo.setCode(400);
 		vo.setSuccess(false);
 		vo.setResult(result);
 		vo.setData(new ErrorMessage(message));

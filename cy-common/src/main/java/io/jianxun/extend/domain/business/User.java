@@ -14,7 +14,6 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotBlank;
@@ -47,7 +46,6 @@ public class User extends AbstractBusinessEntity implements UserDetails {
 	@NotBlank(message = "{user.username.notnull}")
 	private String username;
 	// 密码
-	@JsonIgnore
 	private String password;
 	// 显示名称
 	private String displayName;

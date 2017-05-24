@@ -1,6 +1,5 @@
 package io.jianxun.rest.vo;
 
-import org.apache.http.HttpStatus;
 import org.springframework.data.domain.Page;
 
 public class PageReturnVo<T> extends ReturnVo<T> {
@@ -48,7 +47,7 @@ public class PageReturnVo<T> extends ReturnVo<T> {
 
 	public static <T> PageReturnVo<T> ok(T data) {
 		PageReturnVo<T> vo = new PageReturnVo<T>();
-		vo.setCode(HttpStatus.SC_OK);
+		vo.setCode(200);
 		vo.setSuccess(true);
 		vo.setData(data);
 		return vo;
