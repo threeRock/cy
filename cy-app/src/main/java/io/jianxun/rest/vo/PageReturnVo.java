@@ -54,6 +54,15 @@ public class PageReturnVo<T> extends ReturnVo<T> {
 		return vo;
 	}
 
+	public static <T, S> PageReturnVo<S> builder(Page<T> page, S data) {
+		PageReturnVo<S> vo = (PageReturnVo<S>) ok(data);
+		vo.setNumber(page.getNumber());
+		vo.setSize(page.getSize());
+		vo.setTotalElements(page.getTotalElements());
+		vo.setTotalPages(page.getTotalPages());
+		return vo;
+	}
+
 	public static <T> PageReturnVo<T> builder(Page<T> page) {
 		@SuppressWarnings("unchecked")
 		PageReturnVo<T> vo = (PageReturnVo<T>) ok(page.getContent());

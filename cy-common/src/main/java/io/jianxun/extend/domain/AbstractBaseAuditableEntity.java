@@ -12,6 +12,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.jianxun.extend.domain.business.User;
 
 @MappedSuperclass
@@ -24,6 +26,7 @@ public abstract class AbstractBaseAuditableEntity extends AbstractBaseEntity imp
 	@ManyToOne
 	private User createdBy;
 	@CreatedDate
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime createdDate;
 
 	@LastModifiedBy
@@ -31,6 +34,7 @@ public abstract class AbstractBaseAuditableEntity extends AbstractBaseEntity imp
 	private User lastModifieBy;
 
 	@LastModifiedDate
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime lastModifiedDate;
 
 	public LocalDateTime getCreatedDate() {
