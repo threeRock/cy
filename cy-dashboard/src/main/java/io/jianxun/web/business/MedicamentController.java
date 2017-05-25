@@ -139,6 +139,14 @@ public class MedicamentController {
 		return getDto(ms);
 
 	}
+	
+	@GetMapping("/detailform/{spid}")
+	@PreAuthorize("hasAuthority('MEDICAMENTPICLIST')")
+	String showDetail(@PathVariable("spid") String spid, Model model) {
+		Medicament medicament = medicamentService.findActiveOne(MedicamentPredicates.erpSpidPredicate(spid));
+		model.addAttribute("medicament", medicament);
+		return templatePrefix() + "detail";
+	}
 
 	private List<ValueLabelDto> getDto(List<ERPMedicament> ms) {
 		List<ValueLabelDto> vls = Lists.newArrayList();
