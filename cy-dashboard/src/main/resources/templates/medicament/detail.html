@@ -17,85 +17,86 @@
 		th:object="${medicament}" data-toggle="validate" data-alertmsg="false">
 		<input type="hidden" name="id" th:value="${spid}" /> 
 		<table class="table table-condensed table-hover" width="100%">
-			<tbody>
+			<tbody th:if="${medicament!=null}">
 				<!-- ERPinfo start here -->
-			    <tr>
-					<td><label class="control-label x105">商品资料：</label> <input
-						type="text" th:field="*{erpInfo.spmch}" name="erpspmch"
-						size="15" /></td>
-					<td><label class="control-label x105">是否停用：</label> <input
-						type="text" th:field="*{erpInfo.beactive}" name="erpbeactive"
-						size="15" /></td>
-					<td><label class="control-label x105">产地：</label> <input
-						type="text" th:field="*{erpInfo.shpchd}" name="erpshpchd"
-						size="15" /></td>
+			    <tr th:if="${medicament.erpInfo!=null}">
+					<td><label class="control-label x90">商品资料：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.spmch}" name="erpspmch"
+						size="20" /></td>
+					<td><label class="control-label x90">是否停用：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.beactive}" name="erpbeactive"
+						size="20" /></td>
+					<td><label class="control-label x90">产地：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.shpchd}" name="erpshpchd"
+						size="20" /></td>
 				</tr>
-				<tr>
-					<td><label class="control-label x105">单位：</label> <input
-						type="text" th:field="*{erpInfo.dw}" name="erpdw"
-						size="15" /></td>
-					<td><label class="control-label x105">商品规格：</label> <input
-						type="text" th:field="*{erpInfo.shpgg}" name="erpshpgg"
-						size="15" /></td>
-					<td><label class="control-label x105">批准文号：</label> <input
-						type="text" th:field="*{erpInfo.pizhwh}" name="erppizhwh"
-						size="15" /></td>
+				<tr th:if="${medicament.erpInfo!=null}">
+					<td><label class="control-label x90">单位：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.dw}" name="erpdw"
+						size="20" /></td>
+					<td><label class="control-label x90">商品规格：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.shpgg}" name="erpshpgg"
+						size="20" /></td>
+					<td><label class="control-label x90">批准文号：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.pizhwh}" name="erppizhwh"
+						size="20" /></td>
 				</tr>
-				<tr>
-					<td><label class="control-label x105">剂型：</label> <input
-						type="text" th:field="*{erpInfo.jixing}" name="erpjixing"
-						size="15" /></td>
-					<td><label class="control-label x105">商品类别：</label> <input
-						type="text" th:field="*{erpInfo.leibie}" name="erpleibie"
-						size="15" /></td>
-					<td><label class="control-label x105">用药分类：</label> <input
-						type="text" th:field="*{erpInfo.yongyfl}" name="erpyongyfl"
-						size="15" /></td>
+				<tr th:if="${medicament.erpInfo!=null}">
+					<td><label class="control-label x90">剂型：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.jixing}" name="erpjixing"
+						size="20" /></td>
+					<td><label class="control-label x90">商品类别：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.leibie}" name="erpleibie"
+						size="20" /></td>
+					<td><label class="control-label x90">用药分类：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.yongyfl}" name="erpyongyfl"
+						size="20" /></td>
 				</tr>
-				<tr>
-					<td><label class="control-label x105">是否进口药：</label> <input
-						type="text" th:field="*{erpInfo.is_jkyp}" name="erpis_jkyp"
-						size="15" /></td>
-					<td><label class="control-label x105">质量标准：</label> <input
-						type="text" th:field="*{erpInfo.zhilbz}" name="erpzhilbz"
-						size="15" /></td>
-					<td><label class="control-label x105">基药类型：</label> <input
-						type="text" th:field="*{erpInfo.jiyao}" name="erpjiyao"
-						size="15" /></td>
+				<tr th:if="${medicament.erpInfo!=null}">
+					<td><label class="control-label x90">是否进口药：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.is_jkyp}" name="erpis_jkyp"
+						size="20" /></td>
+					<td><label class="control-label x90">质量标准：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.zhilbz}" name="erpzhilbz"
+						size="20" /></td>
+					<td><label class="control-label x90">基药类型：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.jiyao}" name="erpjiyao"
+						size="20" /></td>
 				</tr>
-				<tr>
-					<td><label class="control-label x105">中标金额：</label> <input
-						type="text" th:field="*{erpInfo.zbjg}" name="erpzbjg"
-						size="15" /></td>
-					<td><label class="control-label x105">主治类型：</label> <input
-						type="text" th:field="*{erpInfo.zhuzlx}" name="erpzhuzlx"
-						size="15" /></td>
-					<td><label class="control-label x105">经营类别：</label> <input
-						type="text" th:field="*{erpInfo.jingylb}" name="erpjingylb"
-						size="15" /></td>
+				<tr th:if="${medicament.erpInfo!=null}">
+					<td><label class="control-label x90">中标金额：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.zbjg}" name="erpzbjg"
+						size="20" /></td>
+					<td><label class="control-label x90">主治类型：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.zhuzlx}" name="erpzhuzlx"
+						size="20" /></td>
+					<td><label class="control-label x90">经营类别：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.jingylb}" name="erpjingylb"
+						size="20" /></td>
 				</tr>
-				<tr>
-					<td><label class="control-label x105">考核分类：</label> <input
-						type="text" th:field="*{erpInfo.khfl}" name="erpkhfl"
-						size="15" /></td>
-					<td><label class="control-label x105">pfpj：</label> <input
-						type="text" th:field="*{erpInfo.pfpj}" name="erppfpj"
-						size="15" /></td>
+				<tr th:if="${medicament.erpInfo!=null}">
+					<td><label class="control-label x90">考核分类：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.khfl}" name="erpkhfl"
+						size="20" /></td>
+					<td><label class="control-label x90">pfpj：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{erpInfo.pfpj}" name="erppfpj"
+						size="20" /></td>
 						
 						
+					
+				</tr>
+				<tr>
 					<!-- extinfo start here -->
-					<td><label class="control-label x105">药品类别：</label> <input
-						type="text" th:field="*{medcategory}" name="medcategory"
-						size="15" /></td>
-				</tr>
-				<tr>
-					<td><label class="control-label x105">直销期：</label> <input
-						type="text" th:field="*{zxq}" name="zxq"
-						size="15" /></td>
+					<td><label class="control-label x90">药品类别：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{medcategory}" name="medcategory"
+						size="20" /></td>
+					<td><label class="control-label x90">直销期：</label> <input
+						type="text" style="border-style:none" readonly="readonly" th:field="*{zxq}" name="zxq"
+						size="20" /></td>
 				</tr>
 				<!-- 
 				<tr>
-					<td><label class="control-label x105">设备照片：</label>
+					<td><label class="control-label x90">实物照片：</label>
 						<div style="display: inline-block; vertical-align: middle;">
 							<div id="medicament_pic_up" data-toggle="upload"
 								data-uploader="medicament/pic/up" data-file-size-limit="1024000000"
@@ -104,25 +105,28 @@
 								data-icon="cloud-upload"></div>
 
 						</div></td>
+				</tr>
+						
+				
 					<td><input type="hidden" th:field="*{mainPic}" value=""
 						id="medicament_pic" /> <span id="medicament_pic_span"></span><span id="medicament_pic_showspan"
 						th:if="${medicament.mainPic!=null}"><img
 							th:src="@{/medicament/pic/{path}(path=${medicament.mainPic})}" width="300" /></span></td>
 				</tr>
 				<tr>
-					<td><label class="control-label x105">设备名称：</label> <input
+					<td><label class="control-label x90">设备名称：</label> <input
 						type="text" th:field="*{name}" name="name"
 						data-rule="required;remote[medicament/check/nameunique, id, depart.id]"
 						size="15" /></td>
-					<td><label class="control-label x105">规格型号：</label> <input
+					<td><label class="control-label x90">规格型号：</label> <input
 						type="text" th:field="*{typeInfo}" name="typeInfo" size="15" /></td>
 				</tr>
 				<tr>
-					<td><label class="control-label x105">设备编号：</label> <input
+					<td><label class="control-label x90">设备编号：</label> <input
 						type="text" th:field="*{code}" name="code"
 						data-rule="required;remote[medicament/check/codeunique, id, depart.id]"
 						size="15" /></td>
-					<td><label class="control-label x105">设备类别：</label> <select
+					<td><label class="control-label x90">设备类别：</label> <select
 						id="medicament_form_productionLine" data-toggle="selectpicker"
 						data-width="150" th:field="*{mainType}">
 							<option th:each="item : ${types}" th:value="${item.id}"
@@ -130,21 +134,21 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td><label class="control-label x105">制造厂家：</label> <input
+					<td><label class="control-label x90">制造厂家：</label> <input
 						type="text" th:field="*{manufacturer}" name="manufacturer"
 						size="15" /></td>
-					<td><label class="control-label x105">出厂编号：</label> <input
+					<td><label class="control-label x90">出厂编号：</label> <input
 						type="text" th:field="*{serialNumber}" name="serialNumber"
 						size="15" /></td>
 				</tr>
 				<tr>
-					<td><label class="control-label x105">出厂 / 投产年月：</label> <input
+					<td><label class="control-label x90">出厂 / 投产年月：</label> <input
 						type="text" th:field="*{dateInfo}" name="dateInfo" size="15" /></td>
-					<td><label class="control-label x105">总重量：</label> <input
+					<td><label class="control-label x90">总重量：</label> <input
 						type="text" th:field="*{weightInfo}" name="weightInfo" size="15" /></td>
 				</tr>
 				<tr>
-					<td colspan="2"><label class="control-label x105">主要技术参数：</label>
+					<td colspan="2"><label class="control-label x90">主要技术参数：</label>
 						<textarea th:field="*{description}" name="description"
 							data-toggle="autoheight" cols="80" rows="10"></textarea></td>
 				</tr>

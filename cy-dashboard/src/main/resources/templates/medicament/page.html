@@ -18,7 +18,7 @@
 			data-url="medicament/category/set/{#bjui-selected}">设置药品类别</button>
 		<button sec:authorize="hasAnyAuthority('MEDICAMENTPICLIST')" type="button" data-toggle="navtab" class="btn-red"
 			data-id="m-pic-form-new" data-url="medicament/pic/list/{#bjui-selected}">药品图片浏览</button>
-		<button sec:authorize="hasAnyAuthority('MEDICAMENTPICLIST')" type="button" data-toggle="navtab" class="btn-red"
+		<button sec:authorize="hasAnyAuthority('MEDICAMENTDETAIL')" type="button" data-toggle="navtab" class="btn-red"
 			data-id="m-detail-form-new" data-url="medicament/detailform/{#bjui-selected}">药品明细</button>
 	</div>
 </div>

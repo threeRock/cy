@@ -141,9 +141,11 @@ public class MedicamentController {
 	}
 	
 	@GetMapping("/detailform/{spid}")
-	@PreAuthorize("hasAuthority('MEDICAMENTPICLIST')")
+	@PreAuthorize("hasAuthority('MEDICAMENTDETAIL')")
 	String showDetail(@PathVariable("spid") String spid, Model model) {
 		Medicament medicament = medicamentService.findActiveOne(MedicamentPredicates.erpSpidPredicate(spid));
+		if (medicament == null)
+			throw new BusinessException("无法获取药品信息");
 		model.addAttribute("medicament", medicament);
 		return templatePrefix() + "detail";
 	}
