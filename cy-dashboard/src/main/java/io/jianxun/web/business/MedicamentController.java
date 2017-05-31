@@ -33,6 +33,7 @@ import io.jianxun.extend.service.BusinessException;
 import io.jianxun.extend.service.business.MedicamentCategoryService;
 import io.jianxun.extend.service.business.MedicamentPredicates;
 import io.jianxun.extend.service.business.MedicamentService;
+import io.jianxun.extend.service.business.StorageService;
 import io.jianxun.source.domain.ERPMedicament;
 import io.jianxun.web.dto.CategorySetDto;
 import io.jianxun.web.dto.ReturnDto;
@@ -110,7 +111,7 @@ public class MedicamentController {
 		}
 		medicament.setPics(newPics);
 		medicamentService.save(medicament);
-		return ReturnDto.ok("删除图片成功",false,"m-pic-form-new");
+		return ReturnDto.ok("删除图片成功", false, "m-pic-form-new");
 	}
 
 	@PostMapping("pic/upload/{spid}")

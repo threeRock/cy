@@ -26,11 +26,11 @@ public class Medicament extends AbstractBusinessEntity {
 	// 商品内码
 	@Transient
 	private ERPMedicament erpInfo;
-	
-	//药品类别
+
+	// 药品类别
 	@ManyToOne
 	private MedicamentCatetory medcategory;
-	//erp系统中药品管理id用于获取erpInfo
+	// erp系统中药品管理id用于获取erpInfo
 	private String erpSpid;
 	// 首显示图片
 	private String mainPic;
@@ -51,6 +51,8 @@ public class Medicament extends AbstractBusinessEntity {
 	}
 
 	public String getMainPic() {
+		if (this.pics != null && this.pics.size() > 0)
+			return this.pics.get(0);
 		return mainPic;
 	}
 
@@ -89,7 +91,5 @@ public class Medicament extends AbstractBusinessEntity {
 	public void setMedcategory(MedicamentCatetory medcategory) {
 		this.medcategory = medcategory;
 	}
-	
-	
 
 }

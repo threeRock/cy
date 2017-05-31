@@ -1,18 +1,31 @@
 package io.jianxun.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
 
+import io.jianxun.extend.domain.business.Medicament;
 import io.jianxun.extend.service.business.MedicamentBelongToService;
+import io.jianxun.extend.service.business.MedicamentPredicates;
+import io.jianxun.extend.service.business.MedicamentService;
+import io.jianxun.extend.service.business.StorageService;
+import io.jianxun.rest.vo.ERPMedicamentVo;
 import io.jianxun.rest.vo.PageReturnVo;
 import io.jianxun.source.domain.ERPMchk;
 import io.jianxun.source.domain.ERPMedicament;
@@ -25,35 +38,61 @@ public class MedicamentController extends BaseRestController {
 
 	// 药品列表
 	@GetMapping("medics")
-	public PageReturnVo<ERPMedicament> getMedicament(
+	public PageReturnVo<List<ERPMedicamentVo>> getMedicament(
 			@PageableDefault(value = 20, sort = { "id.spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
-		return PageReturnVo.builder(medicamentRepository.findAll(pageable));
+		Page<ERPMedicament> medicaments = medicamentRepository.findAll(pageable);
+		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
+		getPic(content);
+		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
+
+	}
+
+	private void getPic(List<ERPMedicamentVo> content) {
+		for (ERPMedicamentVo erpMedicament : content) {
+			Medicament medicament = medicamentService
+					.findActiveOne(MedicamentPredicates.erpSpidPredicate(erpMedicament.getId()));
+			if (medicament != null) {
+				erpMedicament.setPic(medicament.getMainPic());
+				erpMedicament.setPics(medicament.getPics());
+			}
+
+		}
 
 	}
 
 	// 热销药列表
 	@GetMapping("sellWells")
-	public PageReturnVo<ERPMedicament> getSellWells(
+	public PageReturnVo<List<ERPMedicamentVo>> getSellWells(
 			@PageableDefault(value = 20, sort = { "spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
-		return PageReturnVo.builder(medicamentBelongToService.getSellwells(pageable));
+		Page<ERPMedicament> medicaments = medicamentBelongToService.getSellwells(pageable);
+		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
+		getPic(content);
+		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
 	}
 
 	// 推荐药列表
 	@GetMapping("recommends")
-	public PageReturnVo<ERPMedicament> getRecommendations(
+	public PageReturnVo<List<ERPMedicamentVo>> getRecommendations(
 			@PageableDefault(value = 20, sort = { "spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
-		return PageReturnVo.builder(medicamentBelongToService.getRecommendations(pageable));
+		Page<ERPMedicament> medicaments = medicamentBelongToService.getRecommendations(pageable);
+		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
+		getPic(content);
+		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
 	}
 
 	// 药品查询
 	@RequestMapping("medic/search")
-	PageReturnVo<ERPMedicament> searchMedicament(@QuerydslPredicate(root = ERPMedicament.class) Predicate predicate,
+	PageReturnVo<List<ERPMedicamentVo>> searchMedicament(
+			@QuerydslPredicate(root = ERPMedicament.class) Predicate predicate,
 			@PageableDefault(value = 20, sort = { "id.spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
-		return PageReturnVo.builder(medicamentRepository.findAll(predicate, pageable));
+		Page<ERPMedicament> medicaments = medicamentRepository.findAll(predicate, pageable);
+		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
+		getPic(content);
+		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
 
 	}
 
-	//客戶列表
+	// 客戶列表
 	@GetMapping("customs")
 	PageReturnVo<ERPMchk> custom(
 			@PageableDefault(value = 20, sort = { "dwbh" }, direction = Sort.Direction.ASC) Pageable pageable) {
@@ -70,11 +109,25 @@ public class MedicamentController extends BaseRestController {
 
 	}
 
+	@GetMapping("/pic/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+		Resource file = storageService.loadAsResource(filename);
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+				.body(file);
+	}
+
 	@Autowired
 	private ERPMedicamentRepository medicamentRepository;
-	
 	@Autowired
-	private ERPMchkRepository mchkRepository; 
+	private MedicamentService medicamentService;
+
+	@Autowired
+	private ERPMchkRepository mchkRepository;
+
+	@Autowired
+	private StorageService storageService;
 
 	@Autowired
 	private MedicamentBelongToService medicamentBelongToService;

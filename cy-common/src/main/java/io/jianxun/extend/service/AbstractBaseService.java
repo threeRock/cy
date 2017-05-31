@@ -32,7 +32,7 @@ public abstract class AbstractBaseService<T extends AbstractBusinessEntity> {
 	public T findActiveOne(Long id) {
 		Assert.notNull("id", messageSourceService.getMessage("id.notnull"));
 		T entity = repository.findActiveOne(id);
-		entityIsNullAndThrowExcption(entity);
+//		entityIsNullAndThrowExcption(entity);
 		return entity;
 	}
 
@@ -43,7 +43,7 @@ public abstract class AbstractBaseService<T extends AbstractBusinessEntity> {
 
 	public T findActiveOne(Predicate predicate) {
 		T entity = this.repository.findActiveOne(predicate);
-		entityIsNullAndThrowExcption(entity);
+		// entityIsNullAndThrowExcption(entity);
 		return entity;
 	}
 
@@ -132,7 +132,7 @@ public abstract class AbstractBaseService<T extends AbstractBusinessEntity> {
 	public T delete(Long id) {
 		Assert.notNull("id", messageSourceService.getMessage("id.notnull"));
 		T entity = repository.findActiveOne(id);
-		entityIsNullAndThrowExcption(entity);
+//		entityIsNullAndThrowExcption(entity);
 		return delete(entity);
 	}
 
@@ -174,15 +174,16 @@ public abstract class AbstractBaseService<T extends AbstractBusinessEntity> {
 		return entity.isActive();
 	}
 
-	private void entityIsNullAndThrowExcption(T entity) {
-		if (null == entity)
-			throw nullEntityExcepiton();
-	}
+//	private void entityIsNullAndThrowExcption(T entity) {
+//		if (null == entity)
+//			throw nullEntityExcepiton();
+//	}
 
-	private BusinessException nullEntityExcepiton() {
-		return new BusinessException(messageSourceService.getMessage("entity.isnull"));
-	}
-
+	// private BusinessException nullEntityExcepiton() {
+	// return new
+	// BusinessException(messageSourceService.getMessage("entity.isnull"));
+	// }
+	//
 	private BusinessException notActiveExcepiton(T entity) {
 		return new BusinessException(messageSourceService.getMessage("entity.notactive", new Object[] { entity }));
 	}

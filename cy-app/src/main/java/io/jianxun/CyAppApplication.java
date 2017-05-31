@@ -9,10 +9,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import io.jianxun.config.AuditorAwareImpl;
 import io.jianxun.extend.domain.business.User;
+import io.jianxun.extend.service.business.StorageProperties;
 import io.jianxun.service.AppInfo;
 
 @SpringBootApplication
-@EnableConfigurationProperties(AppInfo.class)
+@EnableConfigurationProperties({AppInfo.class,StorageProperties.class})
 @EnableJpaAuditing
 public class CyAppApplication {
 

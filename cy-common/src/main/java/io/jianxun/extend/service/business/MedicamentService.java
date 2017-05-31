@@ -38,8 +38,9 @@ public class MedicamentService extends AbstractBaseService<Medicament> {
 	@Override
 	public Medicament findActiveOne(Predicate predicate) {
 		Medicament medicament = super.findActiveOne(predicate);
-		medicament.setErpInfo(getErpMedicament(medicament.getErpSpid()));
-		return super.findActiveOne(predicate);
+		if (medicament != null)
+			medicament.setErpInfo(getErpMedicament(medicament.getErpSpid()));
+		return medicament;
 	}
 
 	public Page<Medicament> getPage(Predicate predicate, Pageable pageable) {

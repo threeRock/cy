@@ -1,4 +1,4 @@
-package io.jianxun.web.business;
+package io.jianxun.extend.service.business;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

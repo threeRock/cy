@@ -1,4 +1,4 @@
-package io.jianxun.web.business;
+package io.jianxun.extend.service.business;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

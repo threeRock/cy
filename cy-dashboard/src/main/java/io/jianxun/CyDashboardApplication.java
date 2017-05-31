@@ -11,7 +11,7 @@ import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import io.jianxun.config.AuditorAwareImpl;
 import io.jianxun.extend.domain.business.User;
-import io.jianxun.web.business.StorageProperties;
+import io.jianxun.extend.service.business.StorageProperties;
 
 /*
 长药后台管理

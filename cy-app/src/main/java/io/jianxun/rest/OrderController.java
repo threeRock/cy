@@ -2,7 +2,10 @@ package io.jianxun.rest;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,10 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
 
+import io.jianxun.config.JwtTokenUtil;
 import io.jianxun.extend.domain.business.Order;
+import io.jianxun.extend.domain.business.User;
+import io.jianxun.extend.service.BusinessException;
+import io.jianxun.extend.service.business.OrderPredicates;
 import io.jianxun.extend.service.business.OrderService;
+import io.jianxun.extend.service.business.UserService;
 import io.jianxun.rest.vo.OrderVo;
 import io.jianxun.rest.vo.PageReturnVo;
 import io.jianxun.rest.vo.ReturnVo;
@@ -29,7 +38,7 @@ public class OrderController extends BaseRestController {
 		return ReturnVo.ok(OrderVo.toVo(orderService.save(order)), "订单保存成功");
 	}
 
-	// 客户查询
+	// 所有订单查询
 	@RequestMapping("orders")
 	PageReturnVo<List<OrderVo>> orders(@QuerydslPredicate(root = Order.class) Predicate predicate,
 			@PageableDefault(value = 20, sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable) {
@@ -38,7 +47,32 @@ public class OrderController extends BaseRestController {
 
 	}
 
+	@RequestMapping("orders/use")
+	PageReturnVo<List<OrderVo>> userOrders(HttpServletRequest request,@QuerydslPredicate(root = Order.class) Predicate predicate,
+			@PageableDefault(value = 20, sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable) {
+		String token = request.getHeader(tokenHeader);
+		String username = jwtTokenUtil.getUsernameFromToken(token);
+		if(username==null)
+			throw new BusinessException("无法获取用户信息");
+		User user = (User) userService.loadUserByUsername(username);
+		if(user==null)
+			throw new BusinessException("无法获取用户信息");
+		predicate = ExpressionUtils.and(OrderPredicates.userPredicate(user), predicate);
+		Page<Order> orders = orderService.findActivePage(predicate, pageable);
+		return (PageReturnVo<List<OrderVo>>) PageReturnVo.builder(orders, OrderVo.toVo(orders.getContent()));
+
+	}
+
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+	
+	@Value("${jwt.header}")
+	private String tokenHeader;
 
 }
