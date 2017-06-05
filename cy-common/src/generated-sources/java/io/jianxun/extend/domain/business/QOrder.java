@@ -48,6 +48,8 @@ public class QOrder extends EntityPathBase<Order> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate;
 
+    public final StringPath status = createString("status");
+
     //inherited
     public final NumberPath<Long> version;
 

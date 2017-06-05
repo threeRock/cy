@@ -28,4 +28,10 @@ public class OrderPredicates {
 		return order.createdBy.eq(user);
 	}
 
+	// 药品查询
+	public static Predicate spmchPredicate(String spmch) {
+		QOrder order = QOrder.order;
+		return order.items.any().spmch.equalsIgnoreCase(spmch);
+	}
+
 }

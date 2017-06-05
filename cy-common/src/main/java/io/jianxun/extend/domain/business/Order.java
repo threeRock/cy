@@ -40,6 +40,9 @@ public class Order extends AbstractBusinessEntity {
 	@CollectionTable(name = "jx_cy_order_items", joinColumns = @JoinColumn(name = "order_id"))
 	private List<OrderItem> items = Lists.newArrayList();
 
+	// 状态
+	private String status = OrderStatus.CREATE.getName();
+
 	public String getDwmch() {
 		return dwmch;
 	}
@@ -62,6 +65,14 @@ public class Order extends AbstractBusinessEntity {
 
 	public void setItems(List<OrderItem> items) {
 		this.items = items;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
