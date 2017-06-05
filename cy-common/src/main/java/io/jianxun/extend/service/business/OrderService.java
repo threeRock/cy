@@ -31,12 +31,4 @@ public class OrderService extends AbstractBaseService<Order> {
 		throw new BusinessException(String.format("状态为%s的订单不能提交", order.getStatus()));
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Order save(Order order) {
-		if (canModify(order))
-			return super.save(order);
-		throw new BusinessException(String.format("状态为%s的订单不能修改", order.getStatus()));
-	}
-
 }

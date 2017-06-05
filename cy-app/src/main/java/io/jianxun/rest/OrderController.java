@@ -34,20 +34,21 @@ import io.jianxun.rest.vo.ReturnVo;
 @RestController
 public class OrderController extends BaseRestController {
 
-	// 创建订单
+	// app端缓存为提交的订单信息，确认后直接调用创建订单
 	@RequestMapping(value = "order", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
 	public ReturnVo<OrderVo> create(@RequestBody Order order) {
 		return ReturnVo.ok(OrderVo.toVo(orderService.save(order)), "订单保存成功");
 	}
 
-	// 提交订单
-	@RequestMapping(value = "order/commit", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
-	public ReturnVo<OrderVo> commit(@RequestBody Order order) {
-		order = orderService.findActiveOne(order.getId());
-		if (order != null)
-			throw new BusinessException("获取订单信息失败,无法提交");
-		return ReturnVo.ok(OrderVo.toVo(orderService.commit(order)), "订单提交成功");
-	}
+	// // 提交订单
+	// @RequestMapping(value = "order/commit", produces = "application/json;
+	// charset=UTF-8", method = RequestMethod.POST)
+	// public ReturnVo<OrderVo> commit(@RequestBody Order order) {
+	// order = orderService.findActiveOne(order.getId());
+	// if (order != null)
+	// throw new BusinessException("获取订单信息失败,无法提交");
+	// return ReturnVo.ok(OrderVo.toVo(orderService.commit(order)), "订单提交成功");
+	// }
 
 	// 所有订单查询
 	@RequestMapping("orders")

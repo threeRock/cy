@@ -36,4 +36,9 @@ public class OrderItem {
 		this.quantity = quantity;
 	}
 
+	@Override
+	public String toString() {
+		return "[药品标号：" + spid + ", 药品名称=" + spmch + ", 数量=" + quantity + "]";
+	}
+
 }

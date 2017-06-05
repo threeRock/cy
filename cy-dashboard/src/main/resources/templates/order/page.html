@@ -27,10 +27,10 @@
 		<tbody>
 			<tr th:each="e : ${content}" th:attr="data-id=${e.id}">
 				<td th:text="${e.dwmch}">单位名称</td>
-				<td th:each="item : ${e.item}"><span
-					th:text="${item.toString()}"></span><br /></td>
-				<td th:text="${e.dwmch}">单位名称</td>
-				<td th:text="${e.createUser.name}">创建人</td>
+				<td ><div th:each="item : ${e.items}"><span
+					th:text="${item.toString()}"></span><br /></div>
+					</td>
+				<td th:text="${e.createdBy.displayName}">创建人</td>
 				<td th:text="${#temporals.format(e.createdDate, 'yyyy-MM-dd')}">创建时间</td>
 			</tr>
 		</tbody>
