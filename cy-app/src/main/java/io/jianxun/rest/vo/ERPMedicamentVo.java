@@ -66,6 +66,9 @@ public class ERPMedicamentVo {
 	// 图片列表
 	private List<String> pics;
 
+	// 药品总数量
+	private BigDecimal hwshl;
+
 	public String getId() {
 		return id;
 	}
@@ -224,6 +227,14 @@ public class ERPMedicamentVo {
 
 	public void setPics(List<String> pics) {
 		this.pics = pics;
+	}
+
+	public BigDecimal getHwshl() {
+		return hwshl;
+	}
+
+	public void setHwshl(BigDecimal hwshl) {
+		this.hwshl = hwshl;
 	}
 
 	public static ERPMedicamentVo toVo(ERPMedicament medicament) {

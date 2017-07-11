@@ -1,5 +1,6 @@
 package io.jianxun.rest;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,11 @@ import io.jianxun.extend.service.business.MedicamentService;
 import io.jianxun.extend.service.business.StorageService;
 import io.jianxun.rest.vo.ERPMedicamentVo;
 import io.jianxun.rest.vo.PageReturnVo;
+import io.jianxun.source.domain.ERPHwsp;
 import io.jianxun.source.domain.ERPMchk;
 import io.jianxun.source.domain.ERPMedicament;
+import io.jianxun.source.repository.ERPHwspPredicates;
+import io.jianxun.source.repository.ERPHwspRepository;
 import io.jianxun.source.repository.ERPMchkPredicates;
 import io.jianxun.source.repository.ERPMchkRepository;
 import io.jianxun.source.repository.ERPMedicamentRepository;
@@ -42,9 +46,26 @@ public class MedicamentController extends BaseRestController {
 			@PageableDefault(value = 20, sort = { "id.spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
 		Page<ERPMedicament> medicaments = medicamentRepository.findAll(pageable);
 		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
+		// 获取图片
 		getPic(content);
+		// 获取库存
+		getStore(content);
 		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
 
+	}
+
+	private void getStore(List<ERPMedicamentVo> content) {
+		for (ERPMedicamentVo erpMedicament : content) {
+			BigDecimal shl = BigDecimal.ZERO;
+			Iterable<ERPHwsp> sps = erpHwspRepository
+					.findAll(ERPHwspPredicates.erpSpidPredicate(erpMedicament.getId()));
+			for (ERPHwsp erpHwsp : sps) {
+				if (erpHwsp.getHwshl() != null)
+					shl = shl.add(erpHwsp.getHwshl());
+			}
+			erpMedicament.setHwshl(shl);
+
+		}
 	}
 
 	private void getPic(List<ERPMedicamentVo> content) {
@@ -120,6 +141,7 @@ public class MedicamentController extends BaseRestController {
 
 	@Autowired
 	private ERPMedicamentRepository medicamentRepository;
+
 	@Autowired
 	private MedicamentService medicamentService;
 
@@ -131,5 +153,8 @@ public class MedicamentController extends BaseRestController {
 
 	@Autowired
 	private MedicamentBelongToService medicamentBelongToService;
+
+	@Autowired
+	private ERPHwspRepository erpHwspRepository;
 
 }
