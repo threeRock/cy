@@ -57,8 +57,8 @@ public class ERPMedicamentVo {
 	// 考核分类
 	private String khfl;
 
-	// pfpj
-	private BigDecimal pfpj;
+	// 价格信息
+	private List<PriceVo> prices = Lists.newArrayList();
 
 	// 图片
 	private String pic;
@@ -71,6 +71,9 @@ public class ERPMedicamentVo {
 
 	// 药品批次数量
 	private List<PiCiShLVo> pcshls = Lists.newArrayList();
+	// pfpj
+	// 普药药品价格
+	private BigDecimal pfpj;
 
 	public String getId() {
 		return id;
@@ -208,12 +211,12 @@ public class ERPMedicamentVo {
 		this.khfl = khfl;
 	}
 
-	public BigDecimal getPfpj() {
-		return pfpj;
+	public List<PriceVo> getPrices() {
+		return prices;
 	}
 
-	public void setPfpj(BigDecimal pfpj) {
-		this.pfpj = pfpj;
+	public void setPrices(List<PriceVo> prices) {
+		this.prices = prices;
 	}
 
 	public String getPic() {
@@ -246,6 +249,14 @@ public class ERPMedicamentVo {
 
 	public void setPcshls(List<PiCiShLVo> pcshls) {
 		this.pcshls = pcshls;
+	}
+
+	public BigDecimal getPfpj() {
+		return pfpj;
+	}
+
+	public void setPfpj(BigDecimal pfpj) {
+		this.pfpj = pfpj;
 	}
 
 	public static ERPMedicamentVo toVo(ERPMedicament medicament) {

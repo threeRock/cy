@@ -29,15 +29,19 @@ import io.jianxun.extend.service.business.StorageService;
 import io.jianxun.rest.vo.ERPMedicamentVo;
 import io.jianxun.rest.vo.PageReturnVo;
 import io.jianxun.rest.vo.PiCiShLVo;
+import io.jianxun.rest.vo.PriceVo;
 import io.jianxun.source.domain.ERPHwsp;
 import io.jianxun.source.domain.ERPMchk;
 import io.jianxun.source.domain.ERPMedicament;
+import io.jianxun.source.domain.ERPSpQuyu;
 import io.jianxun.source.domain.ERPSphwph;
 import io.jianxun.source.repository.ERPHwspPredicates;
 import io.jianxun.source.repository.ERPHwspRepository;
 import io.jianxun.source.repository.ERPMchkPredicates;
 import io.jianxun.source.repository.ERPMchkRepository;
 import io.jianxun.source.repository.ERPMedicamentRepository;
+import io.jianxun.source.repository.ERPSpQuyuPredicates;
+import io.jianxun.source.repository.ERPSpQuyuRepository;
 import io.jianxun.source.repository.ERPSphwphPredicates;
 import io.jianxun.source.repository.ERPSphwphRepository;
 
@@ -54,7 +58,27 @@ public class MedicamentController extends BaseRestController {
 		getPic(content);
 		// 获取库存
 		getStore(content);
+		// 获取价格
+		getPrice(content);
 		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
+
+	}
+
+	private void getPrice(List<ERPMedicamentVo> content) {
+		for (ERPMedicamentVo erpMedicament : content) {
+			List<PriceVo> prices = erpMedicament.getPrices();
+			BigDecimal pyjg = erpMedicament.getPfpj();
+			if (pyjg != null) {
+				PriceVo vo = new PriceVo("普药价格", "", pyjg);
+				prices.add(vo);
+			}
+			Iterable<ERPSpQuyu> sps = erpSpQuyuRepository
+					.findAll(ERPSpQuyuPredicates.erpSpidPredicate(erpMedicament.getId()));
+			for (ERPSpQuyu erpSpQuyu : sps) {
+				PriceVo vo = new PriceVo("基药价格", erpSpQuyu.getId().getKhquyu(), erpSpQuyu.getZbjg());
+				prices.add(vo);
+			}
+		}
 
 	}
 
@@ -98,7 +122,12 @@ public class MedicamentController extends BaseRestController {
 			@PageableDefault(value = 20, sort = { "spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
 		Page<ERPMedicament> medicaments = medicamentBelongToService.getSellwells(pageable);
 		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
+		// 获取图片
 		getPic(content);
+		// 获取库存
+		getStore(content);
+		// 获取价格
+		getPrice(content);
 		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
 	}
 
@@ -108,7 +137,12 @@ public class MedicamentController extends BaseRestController {
 			@PageableDefault(value = 20, sort = { "spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
 		Page<ERPMedicament> medicaments = medicamentBelongToService.getRecommendations(pageable);
 		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
+		// 获取图片
 		getPic(content);
+		// 获取库存
+		getStore(content);
+		// 获取价格
+		getPrice(content);
 		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
 	}
 
@@ -119,7 +153,12 @@ public class MedicamentController extends BaseRestController {
 			@PageableDefault(value = 20, sort = { "id.spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
 		Page<ERPMedicament> medicaments = medicamentRepository.findAll(predicate, pageable);
 		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
+		// 获取图片
 		getPic(content);
+		// 获取库存
+		getStore(content);
+		// 获取价格
+		getPrice(content);
 		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
 
 	}
@@ -170,5 +209,8 @@ public class MedicamentController extends BaseRestController {
 
 	@Autowired
 	private ERPSphwphRepository erpSphwphRepository;
+
+	@Autowired
+	private ERPSpQuyuRepository erpSpQuyuRepository;
 
 }

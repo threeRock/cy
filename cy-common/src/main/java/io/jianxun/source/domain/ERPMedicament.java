@@ -65,6 +65,7 @@ public class ERPMedicament {
 	private String khfl;
 
 	// pfpj
+	//药品价格
 	private BigDecimal pfpj;
 
 	/**
