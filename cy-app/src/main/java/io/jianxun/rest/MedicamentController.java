@@ -28,14 +28,18 @@ import io.jianxun.extend.service.business.MedicamentService;
 import io.jianxun.extend.service.business.StorageService;
 import io.jianxun.rest.vo.ERPMedicamentVo;
 import io.jianxun.rest.vo.PageReturnVo;
+import io.jianxun.rest.vo.PiCiShLVo;
 import io.jianxun.source.domain.ERPHwsp;
 import io.jianxun.source.domain.ERPMchk;
 import io.jianxun.source.domain.ERPMedicament;
+import io.jianxun.source.domain.ERPSphwph;
 import io.jianxun.source.repository.ERPHwspPredicates;
 import io.jianxun.source.repository.ERPHwspRepository;
 import io.jianxun.source.repository.ERPMchkPredicates;
 import io.jianxun.source.repository.ERPMchkRepository;
 import io.jianxun.source.repository.ERPMedicamentRepository;
+import io.jianxun.source.repository.ERPSphwphPredicates;
+import io.jianxun.source.repository.ERPSphwphRepository;
 
 @RestController
 public class MedicamentController extends BaseRestController {
@@ -64,6 +68,13 @@ public class MedicamentController extends BaseRestController {
 					shl = shl.add(erpHwsp.getHwshl());
 			}
 			erpMedicament.setHwshl(shl);
+
+			Iterable<ERPSphwph> sphwphs = erpSphwphRepository
+					.findAll(ERPSphwphPredicates.erpSpidPredicate(erpMedicament.getId()));
+			for (ERPSphwph erpSphwph : sphwphs) {
+				PiCiShLVo pisl = new PiCiShLVo(erpSphwph.getPihao2(), erpSphwph.getShl());
+				erpMedicament.getPcshls().add(pisl);
+			}
 
 		}
 	}
@@ -156,5 +167,8 @@ public class MedicamentController extends BaseRestController {
 
 	@Autowired
 	private ERPHwspRepository erpHwspRepository;
+
+	@Autowired
+	private ERPSphwphRepository erpSphwphRepository;
 
 }

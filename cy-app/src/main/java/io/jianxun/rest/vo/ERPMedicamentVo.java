@@ -69,6 +69,9 @@ public class ERPMedicamentVo {
 	// 药品总数量
 	private BigDecimal hwshl;
 
+	// 药品批次数量
+	private List<PiCiShLVo> pcshls = Lists.newArrayList();
+
 	public String getId() {
 		return id;
 	}
@@ -235,6 +238,14 @@ public class ERPMedicamentVo {
 
 	public void setHwshl(BigDecimal hwshl) {
 		this.hwshl = hwshl;
+	}
+
+	public List<PiCiShLVo> getPcshls() {
+		return pcshls;
+	}
+
+	public void setPcshls(List<PiCiShLVo> pcshls) {
+		this.pcshls = pcshls;
 	}
 
 	public static ERPMedicamentVo toVo(ERPMedicament medicament) {
