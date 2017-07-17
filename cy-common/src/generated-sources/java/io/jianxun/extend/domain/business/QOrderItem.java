@@ -19,6 +19,8 @@ public class QOrderItem extends BeanPath<OrderItem> {
 
     public static final QOrderItem orderItem = new QOrderItem("orderItem");
 
+    public final StringPath price = createString("price");
+
     public final StringPath quantity = createString("quantity");
 
     public final StringPath spid = createString("spid");

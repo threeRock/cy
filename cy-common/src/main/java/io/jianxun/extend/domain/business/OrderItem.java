@@ -11,6 +11,8 @@ public class OrderItem {
 	private String spmch;
 	// 数量
 	private String quantity;
+	// 价格
+	private String price;
 
 	public String getSpid() {
 		return spid;
@@ -36,9 +38,17 @@ public class OrderItem {
 		this.quantity = quantity;
 	}
 
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
 	@Override
 	public String toString() {
-		return "[药品标号：" + spid + ", 药品名称=" + spmch + ", 数量=" + quantity + "]";
+		return "[药品标号：" + spid + ", 药品名称=" + spmch + ", 数量=" + quantity + ", 价格=" + price + "]";
 	}
 
 }
