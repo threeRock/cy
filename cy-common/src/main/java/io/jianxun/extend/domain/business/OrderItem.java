@@ -1,5 +1,7 @@
 package io.jianxun.extend.domain.business;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -12,7 +14,7 @@ public class OrderItem {
 	// 数量
 	private String quantity;
 	// 价格
-	private String price;
+	private BigDecimal price;
 
 	public String getSpid() {
 		return spid;
@@ -38,11 +40,11 @@ public class OrderItem {
 		this.quantity = quantity;
 	}
 
-	public String getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
