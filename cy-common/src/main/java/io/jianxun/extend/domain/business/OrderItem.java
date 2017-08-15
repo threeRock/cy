@@ -12,7 +12,7 @@ public class OrderItem {
 	// 药品名称
 	private String spmch;
 	// 数量
-	private String quantity;
+	private BigDecimal quantity;
 	// 价格
 	private BigDecimal price;
 
@@ -32,11 +32,11 @@ public class OrderItem {
 		this.spmch = spmch;
 	}
 
-	public String getQuantity() {
+	public BigDecimal getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(BigDecimal quantity) {
 		this.quantity = quantity;
 	}
 

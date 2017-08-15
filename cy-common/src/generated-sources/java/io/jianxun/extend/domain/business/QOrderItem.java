@@ -21,7 +21,7 @@ public class QOrderItem extends BeanPath<OrderItem> {
 
     public final NumberPath<java.math.BigDecimal> price = createNumber("price", java.math.BigDecimal.class);
 
-    public final StringPath quantity = createString("quantity");
+    public final NumberPath<java.math.BigDecimal> quantity = createNumber("quantity", java.math.BigDecimal.class);
 
     public final StringPath spid = createString("spid");
 
