@@ -98,6 +98,8 @@ public class UserService extends AbstractBaseService<User> implements UserDetail
 	@Override
 	public User loadUserByUsername(String username) throws UsernameNotFoundException {
 		User loginUser = this.repository.findActiveOne(UserPredicates.usernamePredicate(username));
+		if(validateIsSuperAdmin(loginUser))
+			loginUser.setRoles(Lists.newArrayList(roleService.createSuperRole()));
 		if (loginUser == null)
 			throw new BusinessException(messageSourceService.getMessage("user.notfound"));
 		return loginUser;
@@ -149,7 +151,9 @@ public class UserService extends AbstractBaseService<User> implements UserDetail
 	public User createAdminIfInit(Depart depart) {
 		if (this.repository.findAll().isEmpty())
 			return initAdminUser(depart);
-		return this.repository.findActiveOne(1L);
+		User user = this.repository.findActiveOne(1L);
+		user.setRoles(Lists.newArrayList(roleService.createSuperRole()));
+		return user;
 
 	}
 

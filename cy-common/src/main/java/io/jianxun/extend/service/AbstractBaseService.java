@@ -32,7 +32,7 @@ public abstract class AbstractBaseService<T extends AbstractBusinessEntity> {
 	public T findActiveOne(Long id) {
 		Assert.notNull("id", messageSourceService.getMessage("id.notnull"));
 		T entity = repository.findActiveOne(id);
-//		entityIsNullAndThrowExcption(entity);
+		// entityIsNullAndThrowExcption(entity);
 		return entity;
 	}
 
@@ -132,7 +132,7 @@ public abstract class AbstractBaseService<T extends AbstractBusinessEntity> {
 	public T delete(Long id) {
 		Assert.notNull("id", messageSourceService.getMessage("id.notnull"));
 		T entity = repository.findActiveOne(id);
-//		entityIsNullAndThrowExcption(entity);
+		// entityIsNullAndThrowExcption(entity);
 		return delete(entity);
 	}
 
@@ -174,10 +174,14 @@ public abstract class AbstractBaseService<T extends AbstractBusinessEntity> {
 		return entity.isActive();
 	}
 
-//	private void entityIsNullAndThrowExcption(T entity) {
-//		if (null == entity)
-//			throw nullEntityExcepiton();
-//	}
+	public void flush() {
+		this.repository.flush();
+	}
+
+	// private void entityIsNullAndThrowExcption(T entity) {
+	// if (null == entity)
+	// throw nullEntityExcepiton();
+	// }
 
 	// private BusinessException nullEntityExcepiton() {
 	// return new

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.collect.Lists;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
 
@@ -31,14 +32,17 @@ import io.jianxun.rest.vo.PageReturnVo;
 import io.jianxun.rest.vo.PiCiShLVo;
 import io.jianxun.rest.vo.PriceVo;
 import io.jianxun.source.domain.ERPHwsp;
+import io.jianxun.source.domain.ERPIpadkc;
 import io.jianxun.source.domain.ERPMchk;
 import io.jianxun.source.domain.ERPMedicament;
 import io.jianxun.source.domain.ERPSpQuyu;
 import io.jianxun.source.domain.ERPSphwph;
 import io.jianxun.source.repository.ERPHwspPredicates;
 import io.jianxun.source.repository.ERPHwspRepository;
+import io.jianxun.source.repository.ERPIpadkcRepository;
 import io.jianxun.source.repository.ERPMchkPredicates;
 import io.jianxun.source.repository.ERPMchkRepository;
+import io.jianxun.source.repository.ERPMedicamentPredicates;
 import io.jianxun.source.repository.ERPMedicamentRepository;
 import io.jianxun.source.repository.ERPSpQuyuPredicates;
 import io.jianxun.source.repository.ERPSpQuyuRepository;
@@ -52,15 +56,22 @@ public class MedicamentController extends BaseRestController {
 	@GetMapping("medics")
 	public PageReturnVo<List<ERPMedicamentVo>> getMedicament(
 			@PageableDefault(value = 20, sort = { "id.spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
-		Page<ERPMedicament> medicaments = medicamentRepository.findAll(pageable);
-		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
+		// Page<ERPMedicament> medicaments =
+		// medicamentRepository.findAll(pageable);
+		Page<ERPIpadkc> kcPages = ipadkcRepository.findAll(pageable);
+		List<ERPMedicament> medicaments = Lists.newArrayList();
+		for (ERPIpadkc ip : kcPages) {
+			medicaments
+					.add(medicamentRepository.findOne(ERPMedicamentPredicates.erpSpidPredicate(ip.getId().getSpid())));
+		}
+		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments);
 		// 获取图片
 		getPic(content);
 		// 获取库存
 		getStore(content);
 		// 获取价格
 		getPrice(content);
-		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
+		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(kcPages, content);
 
 	}
 
@@ -96,8 +107,10 @@ public class MedicamentController extends BaseRestController {
 			Iterable<ERPSphwph> sphwphs = erpSphwphRepository
 					.findAll(ERPSphwphPredicates.erpSpidPredicate(erpMedicament.getId()));
 			for (ERPSphwph erpSphwph : sphwphs) {
-				PiCiShLVo pisl = new PiCiShLVo(erpSphwph.getPihao2(), erpSphwph.getShl());
-				erpMedicament.getPcshls().add(pisl);
+				if (erpSphwph.getShl() != null && BigDecimal.ZERO.compareTo(erpSphwph.getShl()) < 0) {
+					PiCiShLVo pisl = new PiCiShLVo(erpSphwph.getPihao2(), erpSphwph.getShl());
+					erpMedicament.getPcshls().add(pisl);
+				}
 			}
 
 		}
@@ -191,6 +204,9 @@ public class MedicamentController extends BaseRestController {
 
 	@Autowired
 	private ERPMedicamentRepository medicamentRepository;
+
+	@Autowired
+	private ERPIpadkcRepository ipadkcRepository;
 
 	@Autowired
 	private MedicamentService medicamentService;

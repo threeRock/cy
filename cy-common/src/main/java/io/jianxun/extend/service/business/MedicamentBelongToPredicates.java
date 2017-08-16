@@ -1,5 +1,7 @@
 package io.jianxun.extend.service.business;
 
+import java.math.BigDecimal;
+
 import com.querydsl.core.types.Predicate;
 
 import io.jianxun.extend.domain.business.QMedicamentBelongTo;
@@ -22,6 +24,7 @@ public class MedicamentBelongToPredicates {
 
 	public static Predicate belongToPredicate(String belongTo) {
 		QMedicamentBelongTo medicamentBelongTo = QMedicamentBelongTo.medicamentBelongTo;
-		return medicamentBelongTo.belongTo.eq(belongTo);
+		return medicamentBelongTo.belongTo.eq(belongTo).and(medicamentBelongTo.shl.isNotNull())
+				.and(medicamentBelongTo.shl.goe(BigDecimal.ZERO));
 	}
 }

@@ -1,5 +1,7 @@
 package io.jianxun.extend.domain.business;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -29,6 +31,9 @@ public class MedicamentBelongTo extends AbstractBusinessEntity {
 	@Transient
 	private ERPMedicament erpInfo;
 
+	// 库存信息
+	private BigDecimal shl;
+
 	public String getBelongTo() {
 		return belongTo;
 	}
@@ -51,6 +56,14 @@ public class MedicamentBelongTo extends AbstractBusinessEntity {
 
 	public void setErpInfo(ERPMedicament erpInfo) {
 		this.erpInfo = erpInfo;
+	}
+
+	public BigDecimal getShl() {
+		return shl;
+	}
+
+	public void setShl(BigDecimal shl) {
+		this.shl = shl;
 	}
 
 }

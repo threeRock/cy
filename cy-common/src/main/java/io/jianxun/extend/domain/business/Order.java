@@ -35,7 +35,7 @@ public class Order extends AbstractBusinessEntity {
 	private String dwbh;
 
 	// 结算方式
-	private String jsfs;
+	private Boolean jsfs;
 
 	// ERP数据
 
@@ -70,11 +70,11 @@ public class Order extends AbstractBusinessEntity {
 		this.items = items;
 	}
 
-	public String getJsfs() {
+	public Boolean getJsfs() {
 		return jsfs;
 	}
 
-	public void setJsfs(String jsfs) {
+	public void setJsfs(Boolean jsfs) {
 		this.jsfs = jsfs;
 	}
 

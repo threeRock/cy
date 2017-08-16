@@ -42,7 +42,7 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final ListPath<OrderItem, QOrderItem> items = this.<OrderItem, QOrderItem>createList("items", OrderItem.class, QOrderItem.class, PathInits.DIRECT2);
 
-    public final StringPath jsfs = createString("jsfs");
+    public final BooleanPath jsfs = createBoolean("jsfs");
 
     // inherited
     public final QUser lastModifieBy;

@@ -44,6 +44,8 @@ public class QMedicamentBelongTo extends EntityPathBase<MedicamentBelongTo> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate;
 
+    public final NumberPath<java.math.BigDecimal> shl = createNumber("shl", java.math.BigDecimal.class);
+
     public final StringPath spid = createString("spid");
 
     //inherited

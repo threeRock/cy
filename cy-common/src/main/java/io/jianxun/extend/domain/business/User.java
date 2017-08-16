@@ -100,7 +100,9 @@ public class User extends AbstractBusinessEntity implements UserDetails {
 				commaBuilder.append(permission.toUpperCase()).append(",");
 			}
 		}
-		String authorities = commaBuilder.substring(0, commaBuilder.length() - 1);
+		String authorities = "";
+		if (commaBuilder.length() > 1)
+			authorities = commaBuilder.substring(0, commaBuilder.length() - 1);
 		return AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
 	}
 
