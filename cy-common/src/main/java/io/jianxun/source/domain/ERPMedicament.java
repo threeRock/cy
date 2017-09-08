@@ -65,8 +65,14 @@ public class ERPMedicament {
 	private String khfl;
 
 	// pfpj
-	//药品价格
+	// 药品价格
 	private BigDecimal pfpj;
+
+	// 分类名称
+	private String padfl;
+
+	// 分类id
+	private String padflid;
 
 	/**
 	 * @return the id
@@ -336,6 +342,22 @@ public class ERPMedicament {
 	 */
 	public void setPfpj(BigDecimal pfpj) {
 		this.pfpj = pfpj;
+	}
+
+	public String getPadflid() {
+		return padflid;
+	}
+
+	public void setPadflid(String padflid) {
+		this.padflid = padflid;
+	}
+
+	public String getPadfl() {
+		return padfl;
+	}
+
+	public void setPadfl(String padfl) {
+		this.padfl = padfl;
 	}
 
 	@Override

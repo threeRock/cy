@@ -3,6 +3,7 @@ package io.jianxun.rest;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +29,7 @@ import io.jianxun.extend.service.business.MedicamentBelongToService;
 import io.jianxun.extend.service.business.MedicamentPredicates;
 import io.jianxun.extend.service.business.MedicamentService;
 import io.jianxun.extend.service.business.StorageService;
+import io.jianxun.rest.vo.ERPFenLeiVo;
 import io.jianxun.rest.vo.ERPMedicamentVo;
 import io.jianxun.rest.vo.PageReturnVo;
 import io.jianxun.rest.vo.PiCiShLVo;
@@ -37,6 +40,7 @@ import io.jianxun.source.domain.ERPMchk;
 import io.jianxun.source.domain.ERPMedicament;
 import io.jianxun.source.domain.ERPSpQuyu;
 import io.jianxun.source.domain.ERPSphwph;
+import io.jianxun.source.repository.ERPFenLeiRepository;
 import io.jianxun.source.repository.ERPHwspPredicates;
 import io.jianxun.source.repository.ERPHwspRepository;
 import io.jianxun.source.repository.ERPIpadkcRepository;
@@ -202,6 +206,30 @@ public class MedicamentController extends BaseRestController {
 				.body(file);
 	}
 
+	// 药品分类查询
+	@RequestMapping("category")
+	public List<ERPFenLeiVo> category() {
+		return ERPFenLeiVo.builder(erpFenLeiRepository.findAll());
+	}
+
+	@RequestMapping("medic/categoryFilter")
+	PageReturnVo<List<ERPMedicamentVo>> categoryFilterMedicament(
+			@QuerydslPredicate(root = ERPMedicament.class) Predicate predicate, @RequestParam("flid") String flid,
+			@PageableDefault(value = 20, sort = { "id.spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
+		if (StringUtils.isNotBlank(flid))
+			predicate = ExpressionUtils.and(ERPMedicamentPredicates.fenleiPredicate(flid), predicate);
+		Page<ERPMedicament> medicaments = medicamentRepository.findAll(predicate, pageable);
+		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
+		// 获取图片
+		getPic(content);
+		// 获取库存
+		getStore(content);
+		// 获取价格
+		getPrice(content);
+		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
+
+	}
+
 	@Autowired
 	private ERPMedicamentRepository medicamentRepository;
 
@@ -228,5 +256,8 @@ public class MedicamentController extends BaseRestController {
 
 	@Autowired
 	private ERPSpQuyuRepository erpSpQuyuRepository;
+
+	@Autowired
+	private ERPFenLeiRepository erpFenLeiRepository;
 
 }

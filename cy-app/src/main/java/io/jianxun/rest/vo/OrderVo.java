@@ -20,6 +20,9 @@ public class OrderVo {
 	// 单位编号
 	private String dwbh;
 
+	// 结算方式
+	private Boolean jsfs;
+
 	private List<OrderItem> items = Lists.newArrayList();
 
 	private UserVo createBy;
@@ -37,6 +40,14 @@ public class OrderVo {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Boolean isJsfs() {
+		return jsfs;
+	}
+
+	public void setJsfs(Boolean jsfs) {
+		this.jsfs = jsfs;
 	}
 
 	public String getDwmch() {

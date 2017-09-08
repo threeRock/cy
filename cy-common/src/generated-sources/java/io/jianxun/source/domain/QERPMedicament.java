@@ -40,6 +40,10 @@ public class QERPMedicament extends EntityPathBase<ERPMedicament> {
 
     public final StringPath leibie = createString("leibie");
 
+    public final StringPath padfl = createString("padfl");
+
+    public final StringPath padflid = createString("padflid");
+
     public final NumberPath<java.math.BigDecimal> pfpj = createNumber("pfpj", java.math.BigDecimal.class);
 
     public final StringPath pizhwh = createString("pizhwh");
