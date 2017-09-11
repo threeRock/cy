@@ -34,6 +34,7 @@ import io.jianxun.rest.vo.ERPMedicamentVo;
 import io.jianxun.rest.vo.PageReturnVo;
 import io.jianxun.rest.vo.PiCiShLVo;
 import io.jianxun.rest.vo.PriceVo;
+import io.jianxun.rest.vo.ReturnVo;
 import io.jianxun.source.domain.ERPHwsp;
 import io.jianxun.source.domain.ERPIpadkc;
 import io.jianxun.source.domain.ERPMchk;
@@ -208,8 +209,8 @@ public class MedicamentController extends BaseRestController {
 
 	// 药品分类查询
 	@RequestMapping("category")
-	public List<ERPFenLeiVo> category() {
-		return ERPFenLeiVo.builder(erpFenLeiRepository.findAll());
+	public ReturnVo<List<ERPFenLeiVo>> category() {
+		return ReturnVo.ok(ERPFenLeiVo.builder(erpFenLeiRepository.findAll()));
 	}
 
 	@RequestMapping("medic/categoryFilter")
