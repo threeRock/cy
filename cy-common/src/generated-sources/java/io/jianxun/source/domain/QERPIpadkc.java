@@ -24,7 +24,11 @@ public class QERPIpadkc extends EntityPathBase<ERPIpadkc> {
 
     public final QERPIpadkcKey id;
 
+    public final StringPath padflid = createString("padflid");
+
     public final NumberPath<java.math.BigDecimal> shl = createNumber("shl", java.math.BigDecimal.class);
+
+    public final StringPath spmch = createString("spmch");
 
     public QERPIpadkc(String variable) {
         this(ERPIpadkc.class, forVariable(variable), INITS);

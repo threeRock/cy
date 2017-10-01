@@ -19,7 +19,11 @@ public class ERPIpadkc {
 	@EmbeddedId
 	private ERPIpadkcKey id;
 
+	private String spmch;
+
 	private BigDecimal shl;
+
+	private String padflid;
 
 	public ERPIpadkcKey getId() {
 		return id;
@@ -35,6 +39,22 @@ public class ERPIpadkc {
 
 	public void setShl(BigDecimal shl) {
 		this.shl = shl;
+	}
+
+	public String getPadflid() {
+		return padflid;
+	}
+
+	public void setPadflid(String padflid) {
+		this.padflid = padflid;
+	}
+
+	public String getSpmch() {
+		return spmch;
+	}
+
+	public void setSpmch(String spmch) {
+		this.spmch = spmch;
 	}
 
 }

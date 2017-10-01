@@ -14,6 +14,7 @@ public class ERPMedicamentVo {
 	private String id;
 
 	private String spmch;
+	private String spbh;
 	// 是否停用
 	private String beactive;
 	// 产地
@@ -81,6 +82,14 @@ public class ERPMedicamentVo {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getSpbh() {
+		return spbh;
+	}
+
+	public void setSpbh(String spbh) {
+		this.spbh = spbh;
 	}
 
 	public String getSpmch() {

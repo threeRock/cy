@@ -44,6 +44,18 @@ import io.jianxun.web.utils.Utils;
 @Controller
 @RequestMapping("medicament")
 public class MedicamentController {
+
+	/**
+	 * 分页列表 支持 查询 分页 及 排序
+	 */
+	@RequestMapping(value = { "/init/" })
+	@PreAuthorize("hasAuthority('MEDICAMENTLIST')")
+	@ResponseBody
+	String init() {
+		medicamentService.init();
+		return "success";
+	}
+
 	/**
 	 * 分页列表 支持 查询 分页 及 排序
 	 */
@@ -81,12 +93,20 @@ public class MedicamentController {
 	@PreAuthorize("hasAuthority('MEDICAMENTPICLIST')")
 	String piclist(@PathVariable("spid") String spid, Model model) {
 		Medicament medicament = medicamentService.findActiveOne(MedicamentPredicates.erpSpidPredicate(spid));
+		if (medicament == null) {
+			medicament = new Medicament();
+			ERPMedicament em = medicamentService.getErpMedicament(spid);
+			if (em == null)
+				throw new BusinessException("无法获取药品信息");
+			medicament.setErpInfo(em);
+			medicament.setErpSpid(spid);
+			medicamentService.save(medicament);
+		}
 		model.addAttribute("medicament", medicament);
 		return templatePrefix() + "pics";
 	}
 
-	@GetMapping("/pic/{filename:.+}")
-	@PreAuthorize("hasAuthority('MEDICAMENTPICLIST')")
+	@GetMapping("/picshow/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 		Resource file = storageService.loadAsResource(filename);

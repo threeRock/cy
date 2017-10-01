@@ -19,6 +19,7 @@ public class ERPMedicament {
 	// 商品id
 	@EmbeddedId
 	private ERPMedicamentKey id;
+	private String spbh;
 	// 商品资料
 	private String spmch;
 	// 是否停用
@@ -87,6 +88,14 @@ public class ERPMedicament {
 	 */
 	public void setId(ERPMedicamentKey id) {
 		this.id = id;
+	}
+
+	public String getSpbh() {
+		return spbh;
+	}
+
+	public void setSpbh(String spbh) {
+		this.spbh = spbh;
 	}
 
 	/**

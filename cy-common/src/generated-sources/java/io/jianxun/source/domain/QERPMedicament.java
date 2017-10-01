@@ -52,6 +52,8 @@ public class QERPMedicament extends EntityPathBase<ERPMedicament> {
 
     public final StringPath shpgg = createString("shpgg");
 
+    public final StringPath spbh = createString("spbh");
+
     public final StringPath spmch = createString("spmch");
 
     public final StringPath yongyfl = createString("yongyfl");

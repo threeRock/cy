@@ -64,6 +64,9 @@ public class User extends AbstractBusinessEntity implements UserDetails {
 	// 集合按id排序.
 	@OrderBy("id")
 	private List<Role> roles = Lists.newArrayList();
+	
+	//所属区域
+	private String range;
 
 	private Date lastPasswordResetDate;
 
@@ -172,6 +175,16 @@ public class User extends AbstractBusinessEntity implements UserDetails {
 
 	public void setDepart(Depart depart) {
 		this.depart = depart;
+	}
+	
+	
+
+	public String getRange() {
+		return range;
+	}
+
+	public void setRange(String range) {
+		this.range = range;
 	}
 
 	/*

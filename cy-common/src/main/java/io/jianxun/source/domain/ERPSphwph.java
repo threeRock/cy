@@ -15,9 +15,13 @@ public class ERPSphwph {
 
 	// 数量
 	private BigDecimal shl;
+	
 
 	// 批号
 	private String pihao2;
+	
+	//有效期
+	private String sxrq;
 
 	public ERPSphwphKey getId() {
 		return id;
@@ -42,5 +46,15 @@ public class ERPSphwph {
 	public void setPihao2(String pihao2) {
 		this.pihao2 = pihao2;
 	}
+
+	public String getSxrq() {
+		return sxrq;
+	}
+
+	public void setSxrq(String sxrq) {
+		this.sxrq = sxrq;
+	}
+	
+	
 
 }

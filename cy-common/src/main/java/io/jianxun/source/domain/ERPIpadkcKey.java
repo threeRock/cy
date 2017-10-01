@@ -3,7 +3,6 @@ package io.jianxun.source.domain;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Id;
 
 /**
  * 药品库存信息Key

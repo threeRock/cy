@@ -3,8 +3,11 @@ package io.jianxun.rest;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,11 +27,15 @@ import com.google.common.collect.Lists;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
 
+import io.jianxun.config.JwtTokenUtil;
 import io.jianxun.extend.domain.business.Medicament;
+import io.jianxun.extend.domain.business.User;
+import io.jianxun.extend.service.BusinessException;
 import io.jianxun.extend.service.business.MedicamentBelongToService;
 import io.jianxun.extend.service.business.MedicamentPredicates;
 import io.jianxun.extend.service.business.MedicamentService;
 import io.jianxun.extend.service.business.StorageService;
+import io.jianxun.extend.service.business.UserService;
 import io.jianxun.rest.vo.ERPFenLeiVo;
 import io.jianxun.rest.vo.ERPMedicamentVo;
 import io.jianxun.rest.vo.PageReturnVo;
@@ -44,6 +51,7 @@ import io.jianxun.source.domain.ERPSphwph;
 import io.jianxun.source.repository.ERPFenLeiRepository;
 import io.jianxun.source.repository.ERPHwspPredicates;
 import io.jianxun.source.repository.ERPHwspRepository;
+import io.jianxun.source.repository.ERPIpadkcPredicates;
 import io.jianxun.source.repository.ERPIpadkcRepository;
 import io.jianxun.source.repository.ERPMchkPredicates;
 import io.jianxun.source.repository.ERPMchkRepository;
@@ -98,6 +106,23 @@ public class MedicamentController extends BaseRestController {
 
 	}
 
+	private void getPrice(List<ERPMedicamentVo> content, String range) {
+		if (StringUtils.isBlank(range)) {
+			getPrice(content);
+			return;
+		}
+		for (ERPMedicamentVo erpMedicament : content) {
+			List<PriceVo> prices = erpMedicament.getPrices();
+			Iterable<ERPSpQuyu> sps = erpSpQuyuRepository
+					.findAll(ERPSpQuyuPredicates.erpSpidAnderpSpQuyuPredicate(erpMedicament.getId(), range));
+			for (ERPSpQuyu erpSpQuyu : sps) {
+				PriceVo vo = new PriceVo("基药价格", erpSpQuyu.getId().getKhquyu(), erpSpQuyu.getZbjg());
+				prices.add(vo);
+			}
+		}
+
+	}
+
 	private void getStore(List<ERPMedicamentVo> content) {
 		for (ERPMedicamentVo erpMedicament : content) {
 			BigDecimal shl = BigDecimal.ZERO;
@@ -113,7 +138,7 @@ public class MedicamentController extends BaseRestController {
 					.findAll(ERPSphwphPredicates.erpSpidPredicate(erpMedicament.getId()));
 			for (ERPSphwph erpSphwph : sphwphs) {
 				if (erpSphwph.getShl() != null && BigDecimal.ZERO.compareTo(erpSphwph.getShl()) < 0) {
-					PiCiShLVo pisl = new PiCiShLVo(erpSphwph.getPihao2(), erpSphwph.getShl());
+					PiCiShLVo pisl = new PiCiShLVo(erpSphwph.getPihao2(), erpSphwph.getShl(), erpSphwph.getSxrq());
 					erpMedicament.getPcshls().add(pisl);
 				}
 			}
@@ -151,8 +176,16 @@ public class MedicamentController extends BaseRestController {
 
 	// 推荐药列表
 	@GetMapping("recommends")
-	public PageReturnVo<List<ERPMedicamentVo>> getRecommendations(
+	public PageReturnVo<List<ERPMedicamentVo>> getRecommendations(HttpServletRequest request,
 			@PageableDefault(value = 20, sort = { "spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
+		String token = request.getHeader(tokenHeader);
+		String username = jwtTokenUtil.getUsernameFromToken(token);
+		if (username == null)
+			throw new BusinessException("无法获取用户信息");
+		User user = (User) userService.loadUserByUsername(username);
+		if (user == null)
+			throw new BusinessException("无法获取用户信息");
+
 		Page<ERPMedicament> medicaments = medicamentBelongToService.getRecommendations(pageable);
 		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
 		// 获取图片
@@ -160,24 +193,28 @@ public class MedicamentController extends BaseRestController {
 		// 获取库存
 		getStore(content);
 		// 获取价格
-		getPrice(content);
+		getPrice(content, user.getRange());
 		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
 	}
 
 	// 药品查询
 	@RequestMapping("medic/search")
-	PageReturnVo<List<ERPMedicamentVo>> searchMedicament(
-			@QuerydslPredicate(root = ERPMedicament.class) Predicate predicate,
+	PageReturnVo<List<ERPMedicamentVo>> searchMedicament(@RequestParam(name = "spmch", required = false) String spmch,
 			@PageableDefault(value = 20, sort = { "id.spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
-		Page<ERPMedicament> medicaments = medicamentRepository.findAll(predicate, pageable);
-		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
+		Page<ERPIpadkc> kcPages = ipadkcRepository.findAll(ERPIpadkcPredicates.spmchPredicate(spmch), pageable);
+		List<ERPMedicament> medicaments = Lists.newArrayList();
+		for (ERPIpadkc ip : kcPages) {
+			medicaments
+					.add(medicamentRepository.findOne(ERPMedicamentPredicates.erpSpidPredicate(ip.getId().getSpid())));
+		}
+		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments);
 		// 获取图片
 		getPic(content);
 		// 获取库存
 		getStore(content);
 		// 获取价格
 		getPrice(content);
-		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
+		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(kcPages, content);
 
 	}
 
@@ -198,7 +235,7 @@ public class MedicamentController extends BaseRestController {
 
 	}
 
-	@GetMapping("/pic/{filename:.+}")
+	@GetMapping("/picshow/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 		Resource file = storageService.loadAsResource(filename);
@@ -217,17 +254,20 @@ public class MedicamentController extends BaseRestController {
 	PageReturnVo<List<ERPMedicamentVo>> categoryFilterMedicament(
 			@QuerydslPredicate(root = ERPMedicament.class) Predicate predicate, @RequestParam("flid") String flid,
 			@PageableDefault(value = 20, sort = { "id.spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
-		if (StringUtils.isNotBlank(flid))
-			predicate = ExpressionUtils.and(ERPMedicamentPredicates.fenleiPredicate(flid), predicate);
-		Page<ERPMedicament> medicaments = medicamentRepository.findAll(predicate, pageable);
-		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
+		Page<ERPIpadkc> kcPages = ipadkcRepository.findAll(ERPIpadkcPredicates.padflidPredicate(flid), pageable);
+		List<ERPMedicament> medicaments = Lists.newArrayList();
+		for (ERPIpadkc ip : kcPages) {
+			medicaments
+					.add(medicamentRepository.findOne(ERPMedicamentPredicates.erpSpidPredicate(ip.getId().getSpid())));
+		}
+		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments);
 		// 获取图片
 		getPic(content);
 		// 获取库存
 		getStore(content);
 		// 获取价格
 		getPrice(content);
-		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(medicaments, content);
+		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(kcPages, content);
 
 	}
 
@@ -260,5 +300,14 @@ public class MedicamentController extends BaseRestController {
 
 	@Autowired
 	private ERPFenLeiRepository erpFenLeiRepository;
+
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+
+	@Value("${jwt.header}")
+	private String tokenHeader;
+
+	@Autowired
+	private UserService userService;
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -73,6 +74,44 @@ public class MedicamentService extends AbstractBaseService<Medicament> {
 				new Sort("spmch"));
 	}
 
+	// 药品信息
+	@Transactional(readOnly = false)
+	public void init() {
+		List<ERPMedicament> list = (List<ERPMedicament>) erprepo.findAll();
+		for (ERPMedicament erpMedicament : list) {
+			Medicament medicament = findActiveOne(
+					MedicamentPredicates.erpSpidPredicate(erpMedicament.getId().getSpid()));
+			if (medicament == null)
+				medicament = new Medicament();
+			medicament.setErpInfo(erpMedicament);
+			medicament.setErpSpid(erpMedicament.getId().getSpid());
+			if (erpMedicament.getLeibie().contains("中药饮片")) {
+				List<String> pics = medicament.getPics();
+				pics.add("zyyp.jpg");
+			} else {
+				String name = erpMedicament.getSpbh() + ".jpg";
+				String name2 = erpMedicament.getSpbh() + ".png";
+				try {
+					Resource resource = storageService.loadAsResource(name);
+					List<String> pics = medicament.getPics();
+					pics.add(name);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				try {
+					Resource resource = storageService.loadAsResource(name2);
+					List<String> pics = medicament.getPics();
+					pics.add(name2);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			save(medicament);
+		}
+	}
+
 	@Transactional(readOnly = false)
 	public void setCategory(ERPMedicament erpMedicament, MedicamentCatetory medicamentCatetory) {
 		Medicament medicament;
@@ -88,6 +127,9 @@ public class MedicamentService extends AbstractBaseService<Medicament> {
 
 	@Autowired
 	private ERPMedicamentRepository erprepo;
+
+	@Autowired
+	private StorageService storageService;
 
 	@Autowired
 	private MedicamentRepository medrepo;

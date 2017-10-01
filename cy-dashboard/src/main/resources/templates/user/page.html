@@ -31,6 +31,7 @@
 			<tr>
 				<th data-order-field="username">登录名称</th>
 				<th data-order-field="displayName">显示名称</th>
+				<th data-order-field="range">区域</th>
 				<th>角色信息</th>
 				<th width="100">操作</th>
 			</tr>
@@ -39,6 +40,7 @@
 			<tr th:each="e : ${content}" th:attr="data-id=${e.id}">
 				<td th:text="${e.username}">登录名</td>
 				<td th:text="${e.displayName}">显示名称</td>
+				<td th:text="${e.range}">区域</td>
 				<td>角色信息</td>
 				<td><a sec:authorize="hasAnyAuthority('USERMODIFY')"
 					th:href="@{/user/modify/{id}(id=${e.id})}" href="#"

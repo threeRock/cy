@@ -28,6 +28,8 @@ public class QERPSphwph extends EntityPathBase<ERPSphwph> {
 
     public final NumberPath<java.math.BigDecimal> shl = createNumber("shl", java.math.BigDecimal.class);
 
+    public final StringPath sxrq = createString("sxrq");
+
     public QERPSphwph(String variable) {
         this(ERPSphwph.class, forVariable(variable), INITS);
     }
