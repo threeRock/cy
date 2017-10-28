@@ -39,6 +39,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final BooleanPath credentialsNonExpired = createBoolean("credentialsNonExpired");
 
+    public final StringPath customCode = createString("customCode");
+
     public final QDepart depart;
 
     public final StringPath displayName = createString("displayName");

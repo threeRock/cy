@@ -17,6 +17,11 @@
 						type="text" th:field="*{displayName}" name="displayName"
 						data-rule="required;length[2~10]" size="15" /></td>
 				</tr>
+				<tr>
+					<td><label for="j_customCode" class="control-label x95">客户编号：</label> <input
+						type="text" th:field="*{customCode}" name="customCode" id="j_customCode"
+						size="15" /></td>
+				</tr>
 				<tr th:unless="${user.id}">
 					<td><label for="j_pwschange_newpassword"
 						class="control-label x95">密码：</label> <input type="password"
@@ -32,7 +37,7 @@
 				<tr>
 					<td><label for="j_range" class="control-label x95">所属区域：</label> <input
 						type="text" th:field="*{range}" name="renge" id="j_range"
-						data-rule="required;length[2~10]" size="15" /></td>
+						data-rule="length[2~10]" size="15" /></td>
 				</tr>
 				<tr>
 					<td><label class="control-label x95">角色：</label><span

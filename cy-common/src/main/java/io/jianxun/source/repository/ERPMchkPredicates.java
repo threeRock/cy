@@ -16,6 +16,12 @@ public class ERPMchkPredicates {
 	}
 
 	//
+	public static Predicate dwbhPredicate(String dwbh) {
+		QERPMchk eRPMchk = QERPMchk.eRPMchk;
+		return eRPMchk.dwbh.equalsIgnoreCase(dwbh);
+	}
+
+	//
 	public static Predicate isxsPredicate(String isxs) {
 		QERPMchk eRPMchk = QERPMchk.eRPMchk;
 		return eRPMchk.isxs.eq(isxs);

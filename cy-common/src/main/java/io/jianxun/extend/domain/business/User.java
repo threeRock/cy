@@ -67,6 +67,9 @@ public class User extends AbstractBusinessEntity implements UserDetails {
 	
 	//所属区域
 	private String range;
+	
+	//客户编号
+	private String customCode;
 
 	private Date lastPasswordResetDate;
 
@@ -185,6 +188,16 @@ public class User extends AbstractBusinessEntity implements UserDetails {
 
 	public void setRange(String range) {
 		this.range = range;
+	}
+	
+	
+
+	public String getCustomCode() {
+		return customCode;
+	}
+
+	public void setCustomCode(String customCode) {
+		this.customCode = customCode;
 	}
 
 	/*

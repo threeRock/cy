@@ -220,17 +220,41 @@ public class MedicamentController extends BaseRestController {
 
 	// 客戶列表
 	@GetMapping("customs")
-	PageReturnVo<ERPMchk> custom(
+	PageReturnVo<ERPMchk> custom(HttpServletRequest request,
 			@PageableDefault(value = 20, sort = { "dwbh" }, direction = Sort.Direction.ASC) Pageable pageable) {
-		return PageReturnVo.builder(mchkRepository.findAll(ERPMchkPredicates.isxsPredicate("是"), pageable));
+
+		String token = request.getHeader(tokenHeader);
+		String username = jwtTokenUtil.getUsernameFromToken(token);
+		if (username == null)
+			throw new BusinessException("无法获取用户信息");
+		User user = (User) userService.loadUserByUsername(username);
+		if (user == null)
+			throw new BusinessException("无法获取用户信息");
+		final String customCode = user.getCustomCode();
+		if (StringUtils.isNotBlank(customCode))
+			return PageReturnVo.builder(mchkRepository.findAll(ExpressionUtils.and(ERPMchkPredicates.isxsPredicate("是"),
+					ERPMchkPredicates.dwbhPredicate(customCode)), pageable));
+		else
+			return PageReturnVo.builder(mchkRepository.findAll(ERPMchkPredicates.isxsPredicate("是"), pageable));
 
 	}
 
 	// 客户查询
 	@RequestMapping("custom/search")
-	PageReturnVo<ERPMchk> searchCustom(@QuerydslPredicate(root = ERPMchk.class) Predicate predicate,
+	PageReturnVo<ERPMchk> searchCustom(HttpServletRequest request,
+			@QuerydslPredicate(root = ERPMchk.class) Predicate predicate,
 			@PageableDefault(value = 20, sort = { "dwbh" }, direction = Sort.Direction.ASC) Pageable pageable) {
 		predicate = ExpressionUtils.and(ERPMchkPredicates.isxsPredicate("是"), predicate);
+		String token = request.getHeader(tokenHeader);
+		String username = jwtTokenUtil.getUsernameFromToken(token);
+		if (username == null)
+			throw new BusinessException("无法获取用户信息");
+		User user = (User) userService.loadUserByUsername(username);
+		if (user == null)
+			throw new BusinessException("无法获取用户信息");
+		final String customCode = user.getCustomCode();
+		if (StringUtils.isNotBlank(customCode))
+			predicate = ExpressionUtils.and(predicate, ERPMchkPredicates.dwbhPredicate(customCode));
 		return PageReturnVo.builder(mchkRepository.findAll(predicate, pageable));
 
 	}
