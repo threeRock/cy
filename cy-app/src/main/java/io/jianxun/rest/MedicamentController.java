@@ -162,7 +162,7 @@ public class MedicamentController extends BaseRestController {
 	// 热销药列表
 	@GetMapping("sellWells")
 	public PageReturnVo<List<ERPMedicamentVo>> getSellWells(
-			@PageableDefault(value = 20, sort = { "spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
+			@PageableDefault(value = 20, sort = { "spmch" }, direction = Sort.Direction.ASC) Pageable pageable) {
 		Page<ERPMedicament> medicaments = medicamentBelongToService.getSellwells(pageable);
 		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
 		// 获取图片
@@ -177,7 +177,7 @@ public class MedicamentController extends BaseRestController {
 	// 推荐药列表
 	@GetMapping("recommends")
 	public PageReturnVo<List<ERPMedicamentVo>> getRecommendations(HttpServletRequest request,
-			@PageableDefault(value = 20, sort = { "spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
+			@PageableDefault(value = 20, sort = { "spmch" }, direction = Sort.Direction.ASC) Pageable pageable) {
 		String token = request.getHeader(tokenHeader);
 		String username = jwtTokenUtil.getUsernameFromToken(token);
 		if (username == null)
