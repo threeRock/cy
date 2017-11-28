@@ -48,6 +48,8 @@ public class QMedicamentBelongTo extends EntityPathBase<MedicamentBelongTo> {
 
     public final StringPath spid = createString("spid");
 
+    public final StringPath spmch = createString("spmch");
+
     //inherited
     public final NumberPath<Long> version;
 

@@ -25,7 +25,7 @@
 			<div th:each="pic : ${medicament.pics}">
 				<tr>
 					<td><img th:if="${!#strings.isEmpty(pic)}"
-						th:src="@{/medicament/pic/{path}(path=${pic})}" width="300"
+						th:src="@{/medicament/picshow/{path}(path=${pic})}" width="300"
 						height="110" /></td>
 					<td><a sec:authorize="hasAnyAuthority('ROLEREMOVE')"
 						th:href="@{/medicament/pic/remove/{path}/{spid}(spid=${medicament.erpSpid},path=${pic})}"

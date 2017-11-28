@@ -26,6 +26,8 @@ public class MedicamentBelongTo extends AbstractBusinessEntity {
 	private String belongTo;
 	// 药品id
 	private String spid;
+	//药品名称排序用
+	private String spmch;
 	// *************ERP系统数据
 	// 药品信息
 	@Transient
@@ -65,5 +67,15 @@ public class MedicamentBelongTo extends AbstractBusinessEntity {
 	public void setShl(BigDecimal shl) {
 		this.shl = shl;
 	}
+
+	public String getSpmch() {
+		return spmch;
+	}
+
+	public void setSpmch(String spmch) {
+		this.spmch = spmch;
+	}
+	
+	
 
 }

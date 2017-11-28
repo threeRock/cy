@@ -69,7 +69,6 @@ public class MedicamentBelongToService extends AbstractBaseService<MedicamentBel
 
 		// 更新库存
 		refashStock();
-
 		Page<MedicamentBelongTo> temp = findActivePage(
 				MedicamentBelongToPredicates.belongToPredicate(belongTo.getName()), pageable);
 		List<ERPMedicament> medics = Lists.newArrayList();
@@ -77,6 +76,19 @@ public class MedicamentBelongToService extends AbstractBaseService<MedicamentBel
 			medics.add(m.getErpInfo());
 		}
 		return new PageImpl<>(medics, pageable, temp.getTotalElements());
+	}
+
+	@Transactional(readOnly = false)
+	private void refashSpmch() {
+		List<MedicamentBelongTo> contents = findActiveAll();
+		for (MedicamentBelongTo medicamentBelongTo : contents) {
+			ERPMedicament erp = medicamentService.getErpMedicament(medicamentBelongTo.getSpid());
+			if (erp != null ) {
+				medicamentBelongTo.setSpmch(erp.getSpmch());
+			}
+		}
+		save(contents);
+		flush();
 	}
 
 	@Transactional(readOnly = false)
@@ -92,7 +104,11 @@ public class MedicamentBelongToService extends AbstractBaseService<MedicamentBel
 	private void belongTo(MedicamentBelongTo medicamentBelongTo, BelongTo belongTo) {
 		if (!exists(MedicamentBelongToPredicates.erpSpidPredicate(medicamentBelongTo.getSpid()))) {
 			medicamentBelongTo.setBelongTo(belongTo.getName());
-			medicamentBelongTo.setErpInfo(medicamentService.getErpMedicament(medicamentBelongTo.getSpid()));
+			ERPMedicament erp = medicamentService.getErpMedicament(medicamentBelongTo.getSpid());
+			if(erp!=null){
+				medicamentBelongTo.setErpInfo(erp);
+				medicamentBelongTo.setSpmch(erp.getSpmch());
+			}
 			save(medicamentBelongTo);
 		}
 	}

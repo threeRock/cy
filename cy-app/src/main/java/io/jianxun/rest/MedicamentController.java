@@ -177,7 +177,7 @@ public class MedicamentController extends BaseRestController {
 	// 推荐药列表
 	@GetMapping("recommends")
 	public PageReturnVo<List<ERPMedicamentVo>> getRecommendations(HttpServletRequest request,
-			@PageableDefault(value = 20, sort = { "spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
+			@PageableDefault(value = 20, sort = { "spmch" }, direction = Sort.Direction.ASC) Pageable pageable) {
 		String token = request.getHeader(tokenHeader);
 		String username = jwtTokenUtil.getUsernameFromToken(token);
 		if (username == null)
@@ -185,7 +185,6 @@ public class MedicamentController extends BaseRestController {
 		User user = (User) userService.loadUserByUsername(username);
 		if (user == null)
 			throw new BusinessException("无法获取用户信息");
-
 		Page<ERPMedicament> medicaments = medicamentBelongToService.getRecommendations(pageable);
 		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
 		// 获取图片
