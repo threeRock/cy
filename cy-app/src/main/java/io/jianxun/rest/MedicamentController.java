@@ -200,7 +200,7 @@ public class MedicamentController extends BaseRestController {
 	@RequestMapping("medic/search")
 	PageReturnVo<List<ERPMedicamentVo>> searchMedicament(@RequestParam(name = "spmch", required = false) String spmch,
 			@PageableDefault(value = 20, sort = { "id.spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
-		Page<ERPIpadkc> kcPages = ipadkcRepository.findAll(ERPIpadkcPredicates.spmchPredicate(spmch), pageable);
+		Page<ERPIpadkc> kcPages = ipadkcRepository.findAll(ERPIpadkcPredicates.searchPredicate(spmch), pageable);
 		List<ERPMedicament> medicaments = Lists.newArrayList();
 		for (ERPIpadkc ip : kcPages) {
 			medicaments

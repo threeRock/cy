@@ -76,6 +76,9 @@ public class ERPMedicamentVo {
 	// 普药药品价格
 	private BigDecimal pfpj;
 
+	// 助记码
+	private String zjm;
+
 	public String getId() {
 		return id;
 	}
@@ -266,6 +269,14 @@ public class ERPMedicamentVo {
 
 	public void setPfpj(BigDecimal pfpj) {
 		this.pfpj = pfpj;
+	}
+
+	public String getZjm() {
+		return zjm;
+	}
+
+	public void setZjm(String zjm) {
+		this.zjm = zjm;
 	}
 
 	public static ERPMedicamentVo toVo(ERPMedicament medicament) {

@@ -29,4 +29,18 @@ public class ERPIpadkcPredicates {
 		return eIpadkc.spmch.contains(spmch);
 	}
 
+	public static Predicate zjmPredicate(String zjm) {
+		QERPIpadkc eIpadkc = QERPIpadkc.eRPIpadkc;
+		if (StringUtils.isBlank(zjm))
+			zjm = "%";
+		return eIpadkc.zjm.contains(zjm);
+	}
+
+	public static Predicate searchPredicate(String contant) {
+		QERPIpadkc eIpadkc = QERPIpadkc.eRPIpadkc;
+		if (StringUtils.isBlank(contant))
+			contant = "%";
+		return eIpadkc.spmch.contains(contant).or(eIpadkc.zjm.contains(contant));
+	}
+
 }
