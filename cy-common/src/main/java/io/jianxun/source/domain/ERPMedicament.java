@@ -74,6 +74,9 @@ public class ERPMedicament {
 
 	// 分类id
 	private String padflid;
+	
+	//助记码
+	private String zjm;
 
 	/**
 	 * @return the id
@@ -367,6 +370,14 @@ public class ERPMedicament {
 
 	public void setPadfl(String padfl) {
 		this.padfl = padfl;
+	}
+
+	public String getZjm() {
+		return zjm;
+	}
+
+	public void setZjm(String zjm) {
+		this.zjm = zjm;
 	}
 
 	@Override

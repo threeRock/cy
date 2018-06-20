@@ -64,6 +64,8 @@ public class QERPMedicament extends EntityPathBase<ERPMedicament> {
 
     public final StringPath zhuzlx = createString("zhuzlx");
 
+    public final StringPath zjm = createString("zjm");
+
     public QERPMedicament(String variable) {
         this(ERPMedicament.class, forVariable(variable), INITS);
     }
