@@ -162,7 +162,27 @@ public class MedicamentController extends BaseRestController {
 	// 热销药列表
 	@GetMapping("sellWells")
 	public PageReturnVo<List<ERPMedicamentVo>> getSellWells(
-			@PageableDefault(value = 20, sort = { "spid" }, direction = Sort.Direction.ASC) Pageable pageable) {
+			@PageableDefault(value = 20, sort = { "spmch" }, direction = Sort.Direction.ASC) Pageable pageable) {
+		Page<ERPIpadkc> kcPages = ipadkcRepository.findAll(ERPIpadkcPredicates.sellWellsPredicate(),pageable);
+		List<ERPMedicament> medicaments = Lists.newArrayList();
+		for (ERPIpadkc ip : kcPages) {
+			medicaments
+					.add(medicamentRepository.findOne(ERPMedicamentPredicates.erpSpidPredicate(ip.getId().getSpid())));
+		}
+		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments);
+		// 获取图片
+		getPic(content);
+		// 获取库存
+		getStore(content);
+		// 获取价格
+		getPrice(content);
+		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(kcPages, content);
+	}
+
+	// 热销要旧版本
+	@GetMapping("sellWells/old")
+	public PageReturnVo<List<ERPMedicamentVo>> getOldSellWells(
+			@PageableDefault(value = 20, sort = { "spmch" }, direction = Sort.Direction.ASC) Pageable pageable) {
 		Page<ERPMedicament> medicaments = medicamentBelongToService.getSellwells(pageable);
 		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
 		// 获取图片

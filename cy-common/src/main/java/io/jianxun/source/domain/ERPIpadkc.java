@@ -20,9 +20,12 @@ public class ERPIpadkc {
 	private ERPIpadkcKey id;
 
 	private String spmch;
-	
-	//助记码
+
+	// 助记码
 	private String zjm;
+
+	//
+	private String is_xty;
 
 	private BigDecimal shl;
 
@@ -67,5 +70,13 @@ public class ERPIpadkc {
 	public void setZjm(String zjm) {
 		this.zjm = zjm;
 	}
-	
+
+	public String getIs_xty() {
+		return is_xty;
+	}
+
+	public void setIs_xty(String is_xty) {
+		this.is_xty = is_xty;
+	}
+
 }

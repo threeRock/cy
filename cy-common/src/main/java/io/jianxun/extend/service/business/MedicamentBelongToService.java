@@ -57,6 +57,11 @@ public class MedicamentBelongToService extends AbstractBaseService<MedicamentBel
 	public Page<ERPMedicament> getSellwells(Pageable pageable) {
 		return getMedicaments(BelongTo.HOTSAIL, pageable);
 	}
+	
+	@Transactional(readOnly = false)
+	public Page<ERPMedicament> getOldSellwells(Pageable pageable) {
+		return getMedicaments(BelongTo.HOTSAIL, pageable);
+	}
 
 	// 推荐药列表
 	@Transactional(readOnly = false)

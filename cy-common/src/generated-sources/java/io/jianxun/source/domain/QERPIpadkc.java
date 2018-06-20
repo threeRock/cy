@@ -24,6 +24,8 @@ public class QERPIpadkc extends EntityPathBase<ERPIpadkc> {
 
     public final QERPIpadkcKey id;
 
+    public final StringPath is_xty = createString("is_xty");
+
     public final StringPath padflid = createString("padflid");
 
     public final NumberPath<java.math.BigDecimal> shl = createNumber("shl", java.math.BigDecimal.class);
