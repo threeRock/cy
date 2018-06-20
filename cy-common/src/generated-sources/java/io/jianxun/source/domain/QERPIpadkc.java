@@ -30,6 +30,8 @@ public class QERPIpadkc extends EntityPathBase<ERPIpadkc> {
 
     public final StringPath spmch = createString("spmch");
 
+    public final StringPath zjm = createString("zjm");
+
     public QERPIpadkc(String variable) {
         this(ERPIpadkc.class, forVariable(variable), INITS);
     }

@@ -20,6 +20,9 @@ public class ERPIpadkc {
 	private ERPIpadkcKey id;
 
 	private String spmch;
+	
+	//助记码
+	private String zjm;
 
 	private BigDecimal shl;
 
@@ -57,4 +60,12 @@ public class ERPIpadkc {
 		this.spmch = spmch;
 	}
 
+	public String getZjm() {
+		return zjm;
+	}
+
+	public void setZjm(String zjm) {
+		this.zjm = zjm;
+	}
+	
 }
