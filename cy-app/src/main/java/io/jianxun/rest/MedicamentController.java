@@ -162,8 +162,9 @@ public class MedicamentController extends BaseRestController {
 	// 热销药列表
 	@GetMapping("sellWells")
 	public PageReturnVo<List<ERPMedicamentVo>> getSellWells(
+			@RequestParam(name = "spmch", required = false) String spmch,
 			@PageableDefault(value = 20, sort = { "spmch" }, direction = Sort.Direction.ASC) Pageable pageable) {
-		Page<ERPIpadkc> kcPages = ipadkcRepository.findAll(ERPIpadkcPredicates.sellWellsPredicate(),pageable);
+		Page<ERPIpadkc> kcPages = ipadkcRepository.findAll(ERPIpadkcPredicates.sellWellsPredicate(spmch), pageable);
 		List<ERPMedicament> medicaments = Lists.newArrayList();
 		for (ERPIpadkc ip : kcPages) {
 			medicaments
@@ -197,6 +198,7 @@ public class MedicamentController extends BaseRestController {
 	// 推荐药列表
 	@GetMapping("recommends")
 	public PageReturnVo<List<ERPMedicamentVo>> getRecommendations(HttpServletRequest request,
+			@RequestParam(name = "spmch", required = false) String spmch,
 			@PageableDefault(value = 20, sort = { "spmch" }, direction = Sort.Direction.ASC) Pageable pageable) {
 		String token = request.getHeader(tokenHeader);
 		String username = jwtTokenUtil.getUsernameFromToken(token);
@@ -205,7 +207,7 @@ public class MedicamentController extends BaseRestController {
 		User user = (User) userService.loadUserByUsername(username);
 		if (user == null)
 			throw new BusinessException("无法获取用户信息");
-		Page<ERPMedicament> medicaments = medicamentBelongToService.getRecommendations(pageable);
+		Page<ERPMedicament> medicaments = medicamentBelongToService.getRecommendations(spmch, pageable);
 		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments.getContent());
 		// 获取图片
 		getPic(content);
