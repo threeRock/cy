@@ -55,27 +55,27 @@ public class MedicamentBelongToService extends AbstractBaseService<MedicamentBel
 	// 热销药列表
 	@Transactional(readOnly = false)
 	public Page<ERPMedicament> getSellwells(Pageable pageable) {
-		return getMedicaments(BelongTo.HOTSAIL, pageable);
+		return getMedicaments(BelongTo.HOTSAIL, "", pageable);
 	}
-	
+
 	@Transactional(readOnly = false)
 	public Page<ERPMedicament> getOldSellwells(Pageable pageable) {
-		return getMedicaments(BelongTo.HOTSAIL, pageable);
+		return getMedicaments(BelongTo.HOTSAIL, "", pageable);
 	}
 
 	// 推荐药列表
 	@Transactional(readOnly = false)
-	public Page<ERPMedicament> getRecommendations(Pageable pageable) {
-		return getMedicaments(BelongTo.RECOMMENDATION, pageable);
+	public Page<ERPMedicament> getRecommendations(String spmc, Pageable pageable) {
+		return getMedicaments(BelongTo.RECOMMENDATION, spmc, pageable);
 	}
 
 	@Transactional(readOnly = false)
-	public Page<ERPMedicament> getMedicaments(BelongTo belongTo, Pageable pageable) {
+	public Page<ERPMedicament> getMedicaments(BelongTo belongTo, String spmc, Pageable pageable) {
 
 		// 更新库存
 		refashStock();
 		Page<MedicamentBelongTo> temp = findActivePage(
-				MedicamentBelongToPredicates.belongToPredicate(belongTo.getName()), pageable);
+				MedicamentBelongToPredicates.belongToPredicate(belongTo.getName(), spmc), pageable);
 		List<ERPMedicament> medics = Lists.newArrayList();
 		for (MedicamentBelongTo m : temp) {
 			medics.add(m.getErpInfo());
@@ -88,7 +88,7 @@ public class MedicamentBelongToService extends AbstractBaseService<MedicamentBel
 		List<MedicamentBelongTo> contents = findActiveAll();
 		for (MedicamentBelongTo medicamentBelongTo : contents) {
 			ERPMedicament erp = medicamentService.getErpMedicament(medicamentBelongTo.getSpid());
-			if (erp != null ) {
+			if (erp != null) {
 				medicamentBelongTo.setSpmch(erp.getSpmch());
 			}
 		}
@@ -110,7 +110,7 @@ public class MedicamentBelongToService extends AbstractBaseService<MedicamentBel
 		if (!exists(MedicamentBelongToPredicates.erpSpidPredicate(medicamentBelongTo.getSpid()))) {
 			medicamentBelongTo.setBelongTo(belongTo.getName());
 			ERPMedicament erp = medicamentService.getErpMedicament(medicamentBelongTo.getSpid());
-			if(erp!=null){
+			if (erp != null) {
 				medicamentBelongTo.setErpInfo(erp);
 				medicamentBelongTo.setSpmch(erp.getSpmch());
 			}

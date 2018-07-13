@@ -26,7 +26,7 @@ public class MedicamentBelongTo extends AbstractBusinessEntity {
 	private String belongTo;
 	// 药品id
 	private String spid;
-	//药品名称排序用
+	// 药品名称排序用
 	private String spmch;
 	// *************ERP系统数据
 	// 药品信息
@@ -75,7 +75,5 @@ public class MedicamentBelongTo extends AbstractBusinessEntity {
 	public void setSpmch(String spmch) {
 		this.spmch = spmch;
 	}
-	
-	
 
 }

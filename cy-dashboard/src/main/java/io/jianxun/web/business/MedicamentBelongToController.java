@@ -39,8 +39,8 @@ public class MedicamentBelongToController {
 	String hotsailPage(Model model, @QuerydslPredicate(root = MedicamentBelongTo.class) Predicate predicate,
 			@PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
 			@RequestParam MultiValueMap<String, String> parameters) {
-		Page<MedicamentBelongTo> page = medicamentBelongToService.findActivePage(ExpressionUtils
-				.and(MedicamentBelongToPredicates.belongToPredicate(BelongTo.HOTSAIL.getName()), predicate), pageable);
+		Page<MedicamentBelongTo> page = medicamentBelongToService.findActivePage(ExpressionUtils.and(
+				MedicamentBelongToPredicates.belongToPredicate(BelongTo.HOTSAIL.getName(), ""), predicate), pageable);
 		util.addPageInfo(model, parameters, page);
 		util.addSearchInfo(model, parameters);
 		return templatePrefix() + "hotsail/" + Utils.PAGE_TEMPLATE_SUFFIX;
@@ -78,7 +78,7 @@ public class MedicamentBelongToController {
 			@PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
 			@RequestParam MultiValueMap<String, String> parameters) {
 		Page<MedicamentBelongTo> page = medicamentBelongToService.findActivePage(ExpressionUtils
-				.and(MedicamentBelongToPredicates.belongToPredicate(BelongTo.RECOMMENDATION.getName()), predicate),
+				.and(MedicamentBelongToPredicates.belongToPredicate(BelongTo.RECOMMENDATION.getName(), ""), predicate),
 				pageable);
 		util.addPageInfo(model, parameters, page);
 		util.addSearchInfo(model, parameters);

@@ -46,6 +46,7 @@ import io.jianxun.source.domain.ERPHwsp;
 import io.jianxun.source.domain.ERPIpadkc;
 import io.jianxun.source.domain.ERPMchk;
 import io.jianxun.source.domain.ERPMedicament;
+import io.jianxun.source.domain.ERPPfCkhz;
 import io.jianxun.source.domain.ERPSpQuyu;
 import io.jianxun.source.domain.ERPSphwph;
 import io.jianxun.source.repository.ERPFenLeiRepository;
@@ -57,6 +58,8 @@ import io.jianxun.source.repository.ERPMchkPredicates;
 import io.jianxun.source.repository.ERPMchkRepository;
 import io.jianxun.source.repository.ERPMedicamentPredicates;
 import io.jianxun.source.repository.ERPMedicamentRepository;
+import io.jianxun.source.repository.ERPPfCkhzPredicates;
+import io.jianxun.source.repository.ERPPfCkhzRepository;
 import io.jianxun.source.repository.ERPSpQuyuPredicates;
 import io.jianxun.source.repository.ERPSpQuyuRepository;
 import io.jianxun.source.repository.ERPSphwphPredicates;
@@ -279,6 +282,26 @@ public class MedicamentController extends BaseRestController {
 		return PageReturnVo.builder(mchkRepository.findAll(predicate, pageable));
 
 	}
+	
+	@RequestMapping("custom/search/medicament")
+	PageReturnVo<List<ERPMedicamentVo>> searchCustomMedicament(@RequestParam(name = "dwbh") String dwbh,
+			@PageableDefault(value = 20, sort = { "rq" }, direction = Sort.Direction.DESC) Pageable pageable) {
+		Page<ERPPfCkhz> kcPages = erpPfCkhzRepository.findAll(ERPPfCkhzPredicates.dwbhPredicate(dwbh), pageable);
+		List<ERPMedicament> medicaments = Lists.newArrayList();
+		for (ERPPfCkhz ip : kcPages) {
+			medicaments
+					.add(medicamentRepository.findOne(ERPMedicamentPredicates.erpSpidPredicate(ip.getSpid())));
+		}
+		List<ERPMedicamentVo> content = ERPMedicamentVo.toVo(medicaments);
+		// 获取图片
+		getPic(content);
+		// 获取库存
+		getStore(content);
+		// 获取价格
+		getPrice(content);
+		return (PageReturnVo<List<ERPMedicamentVo>>) PageReturnVo.builder(kcPages, content);
+
+	}
 
 	@GetMapping("/picshow/{filename:.+}")
 	@ResponseBody
@@ -345,6 +368,9 @@ public class MedicamentController extends BaseRestController {
 
 	@Autowired
 	private ERPFenLeiRepository erpFenLeiRepository;
+	
+	@Autowired
+	private ERPPfCkhzRepository erpPfCkhzRepository;
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;

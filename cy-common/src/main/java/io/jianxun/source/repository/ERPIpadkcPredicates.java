@@ -42,10 +42,18 @@ public class ERPIpadkcPredicates {
 			contant = "%";
 		return eIpadkc.spmch.contains(contant).or(eIpadkc.zjm.contains(contant));
 	}
-	
+
 	public static Predicate sellWellsPredicate() {
 		QERPIpadkc eIpadkc = QERPIpadkc.eRPIpadkc;
 		return eIpadkc.is_xty.eq("是");
+	}
+
+	public static Predicate sellWellsPredicate(String contant) {
+		QERPIpadkc eIpadkc = QERPIpadkc.eRPIpadkc;
+		Predicate predicate = eIpadkc.is_xty.eq("是");
+		if (StringUtils.isNotBlank(contant))
+			predicate = eIpadkc.spmch.contains(contant).or(eIpadkc.zjm.contains(contant)).and(predicate);
+		return predicate;
 	}
 
 }
